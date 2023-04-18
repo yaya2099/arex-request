@@ -27,11 +27,12 @@ const JSONLensRenderer: FC<{ response: HoppRESTResponse }> = ({ response }) => {
   const { store, dispatch } = useContext(Context);
   const jsonResponse = useRef(null);
   const { t } = useTranslation();
-  useMonaco(jsonResponse, JSON.stringify(strToJson(jsonObj), null, 2), {
+  useMonaco(jsonResponse, JSON.stringify(strToJson(jsonObj), null, 4), {
     extendedEditorConfig: {
       lineWrapping: true,
       mode: 'json',
       theme: store.theme,
+      readOnly:true
     },
     onChange: (value: string) => {
       console.log();

@@ -51,7 +51,7 @@ export const useColumns = (
             <Input
               value={text}
               bordered={false}
-              placeholder={t('count.key') || ''}
+              placeholder={'key'}
               disabled={!record.active}
               onChange={(e) => handleChange(i, 'key', e.target.value)}
             />
@@ -68,7 +68,7 @@ export const useColumns = (
             <Input
               value={text}
               bordered={false}
-              placeholder={t('count.value') || ''}
+              placeholder={'value'}
               disabled={!record.active}
               onChange={(e) => handleChange(i, 'value', e.target.value)}
             />
@@ -97,7 +97,7 @@ export const useColumns = (
                   onClick={() => handleDisable(i)}
                 />
               </Tooltip>
-              <Tooltip title={t('remove')}>
+              <Tooltip title={t('action.remove')}>
                 <Button
                   style={{ color: '#ef4444' }}
                   type='text'

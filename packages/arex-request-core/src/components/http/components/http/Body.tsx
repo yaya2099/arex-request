@@ -2,6 +2,7 @@ import { css, useTheme } from '@emotion/react';
 import { Radio, RadioChangeEvent, Select } from 'antd';
 import React, { useContext, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { Context } from '../../../../providers/ConfigProvider';
 import RawBody from './RawBody';
 const HttpBody = () => {
@@ -11,7 +12,7 @@ const HttpBody = () => {
 
   const { store, dispatch } = useContext(Context);
 
-  const bigCateOptions = ['none', 'x-www-form-urlencoded', 'raw'];
+  const bigCateOptions = ['raw'];
 
   const rawSmallCateOptions = [
     {
@@ -24,19 +25,6 @@ const HttpBody = () => {
           `}
         >
           JSON
-        </span>
-      ),
-    },
-    {
-      label: 'protobuf',
-      value: 'application/protobuf',
-      test: (
-        <span
-          css={css`
-            color: ${theme.colorPrimary};
-          `}
-        >
-          protobuf
         </span>
       ),
     },
@@ -86,10 +74,16 @@ const HttpBody = () => {
           />
         </div>
 
-        <a>{t('action.prettify')}</a>
+        <a
+          onClick={() => {
+            rawBodyRef.current.prettifyRequestBody();
+          }}
+        >
+          {t('action.prettify')}
+        </a>
       </div>
 
-      <RawBody />
+      <RawBody ref={rawBodyRef} />
     </div>
   );
 };

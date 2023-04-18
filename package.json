@@ -9,7 +9,8 @@
     "dev": "pnpm --stream -r do-dev",
     "build": "pnpm -r do-build",
     "lint": "eslint \"packages/**/*.{ts,tsx}\" --fix",
-    "pre-commit": "pnpm -r do-lint"
+    "pre-commit": "pnpm -r do-lint",
+    "deploy": "npm run build && gh-pages -d packages/arex-request-example/dist"
   },
   "workspaces": [
     "./packages/*"
@@ -35,6 +36,7 @@
   },
   "dependencies": {
     "husky": "^8.0.3",
-    "lint-staged": "^13.2.1"
+    "lint-staged": "^13.2.1",
+    "gh-pages": "^5.0.0"
   }
 }

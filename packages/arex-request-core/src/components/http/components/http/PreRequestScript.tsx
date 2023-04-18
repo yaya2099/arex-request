@@ -21,7 +21,7 @@ export const ResponseTestHeader = styled.div`
 `;
 
 const ThemeColorPrimaryButton = styled(Button)`
-  color: ${(props) => 'blue'} !important;
+  color: ${(props) => props.theme.colorPrimary} !important;
 `;
 
 export const ResponseTestWrapper = styled.div`
@@ -116,10 +116,10 @@ const HttpPreRequestScript = () => {
           <div>
             <a
               css={css`
-                color: ${'green'};
+                color: ${theme.colorPrimary};
               `}
               type='text'
-              onClick={() => window.open('https://docs.hoppscotch.io/features/tests')}
+              onClick={() => window.open('https://learning.postman.com/docs/writing-scripts/pre-request-scripts/')}
             >
               Read documentation
             </a>

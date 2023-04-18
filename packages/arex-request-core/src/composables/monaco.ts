@@ -8,6 +8,7 @@ type ExtendedEditorConfig = {
   lineWrapping: boolean;
   theme: string;
   isEndpointInput: boolean;
+  readOnly: boolean;
 };
 
 type Options = {
@@ -36,6 +37,7 @@ export function useMonaco(el: any, value: string, options: Options) {
 
   const normalMode: monaco.editor.IStandaloneEditorConstructionOptions = {
     fontSize: 12,
+    wordWrap:'wordWrapColumn'
   };
 
   const initView = (el: any) => {
@@ -50,7 +52,8 @@ export function useMonaco(el: any, value: string, options: Options) {
           enabled: false,
         },
         scrollBeyondLastLine: false,
-        theme: options.extendedEditorConfig.theme === 'dark' ? 'vs-dark' : 'vs'
+        theme: options.extendedEditorConfig.theme === 'dark' ? 'vs-dark' : 'vs',
+        readOnly:options.extendedEditorConfig.readOnly
       }),
     );
   };
@@ -89,7 +92,6 @@ export function useMonaco(el: any, value: string, options: Options) {
   }, [options]);
 
   useEffect(() => {
-    // initView(el.current);
     editor?.updateOptions({
       theme: options.extendedEditorConfig.theme === 'dark' ? 'vs-dark' : 'vs',
     });

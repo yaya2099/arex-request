@@ -1,28 +1,27 @@
 import { css } from '@emotion/react';
 import { message } from 'antd';
-import { useContext, useImperativeHandle, useRef } from 'react';
+import { forwardRef, useContext, useImperativeHandle, useRef } from 'react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useMonaco } from '../../../../composables/monaco';
 import { Context } from '../../../../providers/ConfigProvider';
 
-
-const HttpRawBody = () => {
+const HttpRawBody = (props:any, ref:any) => {
   const { store, dispatch } = useContext(Context);
   const { t } = useTranslation();
-  // useImperativeHandle(cRef, () => {
-  //   return {
-  //     prettifyRequestBody: function () {
-  //       prettifyRequestBody();
-  //     },
-  //   };
-  // });
+  useImperativeHandle(ref, () => {
+    return {
+      prettifyRequestBody: function () {
+        prettifyRequestBody();
+      },
+    };
+  });
   const prettifyRequestBody = () => {
     try {
       const jsonObj = JSON.parse(store.request.body.body as string);
       dispatch((state) => {
-        state.request.body.body = JSON.stringify(jsonObj, null, 2);
+        state.request.body.body = JSON.stringify(jsonObj, null, 4);
       });
     } catch (e) {
       message.error(t('error.json_prettify_invalid_body'));
@@ -59,4 +58,4 @@ const HttpRawBody = () => {
   );
 };
 
-export default HttpRawBody;
+export default forwardRef(HttpRawBody);
