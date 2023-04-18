@@ -1,0 +1,39 @@
+{
+  "name": "arex-request-example",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "do-dev": "vite",
+    "do-build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/core": "^11.0.0",
+    "@emotion/react": "^11.10.6",
+    "@emotion/serialize": "^1.1.1",
+    "@emotion/styled": "^11.10.6",
+    "antd": "^5.4.2",
+    "buffer": "^6.0.3",
+    "arex-request-core": "workspace:^0.0.1-beta.1",
+    "arex-request-runtime": "^1.0.2",
+    "jquery": "^3.6.4",
+    "monaco-editor": "^0.37.1",
+    "postman-collection": "^4.1.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "xspy": "^0.0.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.21.4",
+    "@emotion/babel-plugin": "^11.10.6",
+    "@rollup/plugin-inject": "^5.0.3",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react-swc": "^3.0.0",
+    "rollup-plugin-copy": "^3.4.0",
+    "typescript": "^4.9.3",
+    "vite": "^4.2.0",
+    "vite-plugin-static-copy": "^0.13.1"
+  }
+}
