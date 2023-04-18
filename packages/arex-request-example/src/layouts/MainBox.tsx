@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 import AppFooter from '../components/app/Footer';
 import AppHeader from '../components/app/Header';
-import { proxy } from '../helpers/postman';
+import { sendRequest } from '../helpers/postman';
 import useDarkMode from '../hooks/use-dark-mode';
 const defaultReq = {
   preRequestScript: '',
@@ -28,11 +28,11 @@ const MainBox = () => {
     localStorage.setItem('req', JSON.stringify(r));
     message.success('保存成功');
   }
-  function onSend(r: any) {
-    return proxy(r).then((r1: any) => {
+  function onSend(request:any, environment:any) {
+    return sendRequest(request, environment).then((res: any) => {
       return {
-        response: r1.response,
-        testResult: r1.testResult,
+        response: res.response,
+        testResult: res.testResult,
       };
     });
   }
@@ -67,16 +67,17 @@ const MainBox = () => {
           `}
         >
           <Http
-            onSend={onSend}
+            onSend={(request) => {
+              return onSend(request, {
+                name: 'dev',
+                variables: [{ key: 'url', value: 'https://m.weibo.cn' }],
+              });
+            }}
             onSave={onSave}
             value={JSON.parse(localStorage.getItem('req') || JSON.stringify(defaultReq))}
             breadcrumb={<div></div>}
-            environment={{ name: '', variables: [] }}
+            environment={{ name: 'dev', variables: [{ key: 'url', value: 'https://m.weibo.cn' }] }}
             config={{}}
-            onChangeEditState={() => {
-              console.log('');
-            }}
-            theme={'light'}
           />
         </div>
       </div>

@@ -13,7 +13,6 @@ import { PostmanTestResult } from './helpers/types/PostmanTestResult';
 
 export interface HttpProps {
   environment: Environment;
-  theme: 'dark' | 'light';
   value: HoppRESTRequest | null;
   breadcrumb: any;
   onSend: (
@@ -21,7 +20,6 @@ export interface HttpProps {
   ) => Promise<{ response: HoppRESTResponse; testResult: PostmanTestResult }>;
   onSave: (r: HoppRESTRequest) => void;
   config: any;
-  onChangeEditState: (r: boolean) => void;
 }
 
 const Http: FC<HttpProps> = ({
@@ -29,19 +27,22 @@ const Http: FC<HttpProps> = ({
   onSend,
   environment,
   onSave,
-  theme,
   breadcrumb,
-  onChangeEditState,
 }) => {
   const { store, dispatch } = useContext(Context);
   useEffect(() => {
     dispatch((state) => {
       if (value && JSON.stringify(value) !== '{}') {
         state.request = value;
-        // state.request.headers.push({ key: 'xxxxxxxx', value: 'xxxxxxxx' });
       }
     });
   }, [value]);
+
+  useEffect(() => {
+    dispatch((state) => {
+      state.environment = environment;
+    });
+  }, [environment]);
   return (
     <Allotment
       css={css`

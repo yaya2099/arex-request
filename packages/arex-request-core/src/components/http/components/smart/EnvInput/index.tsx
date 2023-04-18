@@ -1,21 +1,25 @@
 import { css, useTheme } from '@emotion/react';
+import { theme } from 'antd';
 import * as monaco from 'monaco-editor';
 import React, { FC, useContext, useEffect, useRef, useState } from 'react';
 
 import { useMonaco } from '../../../../../composables/monaco';
 import { Context } from '../../../../../providers/ConfigProvider';
-import {getMarkFromToArr, HOPP_ENVIRONMENT_REGEX } from '../../../editor/extensions/HoppEnvironment';
+import {
+  getMarkFromToArr,
+  HOPP_ENVIRONMENT_REGEX,
+} from '../../../editor/extensions/HoppEnvironment';
 // import { useMonaco } from '../../../../../../../composables/monaco';
 import SmartTooltip from '../Tooltip';
 import TooltipContent from './TooltipContent';
 import { getElementViewPosition } from './util';
-
+const { useToken } = theme;
 interface SmartEnvInputProps {
   value: string;
   onChange: (e: any) => void;
 }
 const SmartEnvInput: FC<SmartEnvInputProps> = ({ value, onChange }) => {
-  const theme = useTheme();
+  const theme = useToken();
   // TODO editor type
   const { store } = useContext(Context);
   const [open, setOpen] = useState(false);
@@ -117,7 +121,7 @@ const SmartEnvInput: FC<SmartEnvInputProps> = ({ value, onChange }) => {
     <div
       ref={smartEnvInputRef}
       css={css`
-        border: 1px solid ${theme.colorBorder};
+        border: 1px solid ${theme.token.colorBorder};
         flex: 1;
         //添加 min-width: 0 的原因: https://juejin.cn/post/6974356682574921765
         min-width: 0;

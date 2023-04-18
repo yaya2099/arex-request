@@ -1,13 +1,14 @@
 import { css, useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Button, Typography } from 'antd';
+import { theme } from 'antd';
 import React, { useContext, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useMonaco } from '../../../../composables/monaco';
 import { Context } from '../../../../providers/ConfigProvider';
 const { Text } = Typography;
-
+const { useToken } = theme;
 export const ResponseTestHeader = styled.div`
   display: flex;
   justify-content: space-between;
@@ -39,7 +40,7 @@ export const ResponseTestWrapper = styled.div`
 const HttpTests = () => {
   const { store, dispatch } = useContext(Context);
   const { t } = useTranslation();
-  const theme = useTheme();
+  const theme = useToken();
   const codeSnippet = [
     {
       name: 'Send a request',
@@ -122,10 +123,12 @@ const HttpTests = () => {
           <div>
             <a
               css={css`
-                color: ${theme.colorPrimary};
+                color: ${theme.token.colorPrimary};
               `}
               type='text'
-              onClick={() => window.open('https://learning.postman.com/docs/writing-scripts/test-scripts/')}
+              onClick={() =>
+                window.open('https://learning.postman.com/docs/writing-scripts/test-scripts/')
+              }
             >
               Read documentation
             </a>

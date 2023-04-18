@@ -9,7 +9,7 @@ const converToUrl = (requestParams: any) => {
   return '?' + params.join('&');
 };
 // 发送一个request
-export async function proxy(hopReq: any) {
+export async function sendRequest(hopReq: any, environment: any) {
   // @ts-ignore
   const runner = new window.PostmanRuntime.Runner();
   const rawCollection = {
@@ -62,53 +62,62 @@ export async function proxy(hopReq: any) {
   const consolesBox: any = [];
   let res: any = {};
   return new Promise((resolve, reject) => {
-    runner.run(collection, {}, function (err: any, run: any) {
-      run.start({
-        assertion: function (cursor: any, assertions: any) {
-          assertionsBox = [...assertionsBox, ...assertions];
-        },
-        console: function (cursor: any, level: any, ...logs: any) {
-          consolesBox.push(logs);
-        },
-        prerequest: function (err: any, cursor: any, results: any, item: any) {
-          console.log('');
-        },
-        responseData: function (cursor: any, data: any) {
-          console.log('');
-        },
-        item: function (err: any, cursor: any, item: any, visualizer: any) {
-          console.log('pm logs:', consolesBox);
-          resolve({
-            response: res,
-            testResult: assertionsBox,
-            consoles: consolesBox,
-          });
-        },
-        //调用一次，并对集合中的每个请求进行响应
-        response: function (
-          err: any,
-          cursor: any,
-          response: any,
-          request: any,
-          item: any,
-          cookies: any,
-          history: any,
-        ) {
-          res = {
-            type: 'success',
-            headers: Object.keys(response.headers).map((key) => ({
-              key: key,
-              value: String(response.headers[key]),
-            })),
-            statusCode: response.code,
-            body: response.stream,
-            meta: {
-              responseSize: response.stream.length, // in bytes
-              responseDuration: response.responseTime, // in millis
-            },
-          };
-        },
-      });
-    });
+    runner.run(
+      collection,
+      {
+        environment: new sdk.VariableScope({
+          name: environment.name,
+          values: environment.variables,
+        }),
+      },
+      function (err: any, run: any) {
+        run.start({
+          assertion: function (cursor: any, assertions: any) {
+            assertionsBox = [...assertionsBox, ...assertions];
+          },
+          console: function (cursor: any, level: any, ...logs: any) {
+            consolesBox.push(logs);
+          },
+          prerequest: function (err: any, cursor: any, results: any, item: any) {
+            console.log('');
+          },
+          responseData: function (cursor: any, data: any) {
+            console.log('');
+          },
+          item: function (err: any, cursor: any, item: any, visualizer: any) {
+            console.log('pm logs:', consolesBox);
+            resolve({
+              response: res,
+              testResult: assertionsBox,
+              consoles: consolesBox,
+            });
+          },
+          //调用一次，并对集合中的每个请求进行响应
+          response: function (
+            err: any,
+            cursor: any,
+            response: any,
+            request: any,
+            item: any,
+            cookies: any,
+            history: any,
+          ) {
+            res = {
+              type: 'success',
+              headers: Object.keys(response.headers).map((key) => ({
+                key: key,
+                value: String(response.headers[key]),
+              })),
+              statusCode: response.code,
+              body: response.stream,
+              meta: {
+                responseSize: response.stream.length, // in bytes
+                responseDuration: response.responseTime, // in millis
+              },
+            };
+          },
+        });
+      },
+    );
   });
 }

@@ -6,7 +6,7 @@ import { FC } from 'react';
 // import { HoppTestResult } from '../../helpers/types/HoppTestResult';
 const { Text, Link } = Typography;
 
-const gonggong = css`
+const testResultWrap = css`
   padding: 10px;
   padding-bottom: 0;
 `;
@@ -16,17 +16,17 @@ const TestResult: FC<{ testResult: any }> = ({ testResult }) => {
       {testResult.map((t: any, index: number) => {
         if (t.passed) {
           return (
-            <div css={gonggong} key={index}>
-              <Tag color={'success'}>成功</Tag>
-              <Text type='secondary'>{t.name}</Text>
+            <div css={testResultWrap} key={index}>
+              <Tag color={'#0cbb52'}>成功</Tag>
+              <Text type='secondary' css={css`  font-size: 12px !important;`}>{t.name}</Text>
               {/*<Text*/}
             </div>
           );
         } else {
           return (
-            <div css={gonggong} key={index}>
-              <Tag color={'error'}>失败</Tag>
-              <Text type='secondary'>
+            <div css={testResultWrap} key={index}>
+              <Tag color={'#eb2013'}>失败</Tag>
+              <Text type='secondary' css={css`  font-size: 12px !important;`}>
                 {t.name} | AssertionError: {t.error.message}
               </Text>
               {/*<Text*/}

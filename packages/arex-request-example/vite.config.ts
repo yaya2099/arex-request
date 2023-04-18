@@ -20,7 +20,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      'arex-request-core': path.resolve('../arex-request-core/src'),
+      // 'arex-request-core': path.resolve('../arex-request-core/src'),
     },
   },
   base: 'arex-request',

@@ -1,3 +1,4 @@
+// import './userWorker';
 import './css/index.css';
 import './i18n';
 import 'allotment/dist/style.css';

@@ -1,6 +1,8 @@
 import './userWorker';
 import 'antd/dist/reset.css';
 import './helpers/adapter';
+import 'allotment/dist/style.css';
+import './assets/css/index.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
