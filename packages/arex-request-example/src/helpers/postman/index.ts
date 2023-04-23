@@ -1,5 +1,7 @@
 // @ts-ignore
 import sdk from 'postman-collection';
+
+import { convertToPmBody } from './convertToPmBody';
 const converToUrl = (requestParams: any) => {
   const params: any = [];
   requestParams.forEach(({ key, value }: any) => {
@@ -41,15 +43,7 @@ export async function sendRequest(hopReq: any, environment: any) {
         request: {
           method: hopReq.method,
           header: hopReq.headers,
-          body: {
-            mode: 'raw',
-            raw: hopReq.body.body,
-            options: {
-              raw: {
-                language: 'json',
-              },
-            },
-          },
+          body: convertToPmBody(hopReq.body),
           url: sdk.Url.parse(hopReq.endpoint + converToUrl(hopReq.params)),
         },
         response: [],
@@ -69,6 +63,19 @@ export async function sendRequest(hopReq: any, environment: any) {
           name: environment.name,
           values: environment.variables,
         }),
+        fileResolver: {
+          stat(src: any, cb: any) {
+            cb(null, {
+              isFile: function () {
+                return true;
+              },
+              mode: 33188, //权限
+            });
+          },
+          createReadStream(base64: string) {
+            return base64.split(';base64,')[1];
+          },
+        },
       },
       function (err: any, run: any) {
         run.start({

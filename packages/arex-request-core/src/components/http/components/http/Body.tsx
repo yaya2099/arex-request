@@ -1,18 +1,17 @@
 import { css, useTheme } from '@emotion/react';
-import { Radio, RadioChangeEvent, Select } from 'antd';
-import React, { useContext, useRef, useState } from 'react';
+import { Radio, Select } from 'antd';
+import React, { useContext, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Context } from '../../../../providers/ConfigProvider';
+import BinaryBody from './BinaryBody';
 import RawBody from './RawBody';
 const HttpBody = () => {
   const { t } = useTranslation();
   const theme = useTheme();
-  const [value, setValue] = useState('application/json');
-
   const { store, dispatch } = useContext(Context);
 
-  const bigCateOptions = ['raw'];
+  const bigCateOptions = ['raw', 'binary'];
 
   const rawSmallCateOptions = [
     {
@@ -33,18 +32,13 @@ const HttpBody = () => {
   const onChange = (value: any) => {
     dispatch((state) => {
       state.request.body.contentType = value;
-      state.request.headers = state.request.headers.filter(
-        (head) => head.key.toLowerCase() !== 'content-type',
-      );
-      state.request.headers.unshift({
-        key: 'Content-Type',
-        value: value,
-        active: true,
-      });
     });
   };
   const rawBodyRef = useRef<any>(null);
-
+  const isShow = useMemo(() => {
+    // @ts-ignore
+    return ['application/json'].includes(store.request.body.contentType);
+  }, [store.request.body.contentType]);
   return (
     <div
       css={css`
@@ -58,12 +52,41 @@ const HttpBody = () => {
           display: flex;
           justify-content: space-between;
           margin: 6px 0;
+          padding-bottom: 6px;
         `}
       >
         <div>
-          <Radio.Group options={bigCateOptions} value={'raw'} />
+          <Radio.Group
+            options={bigCateOptions}
+            value={
+              // @ts-ignore
+              {
+                '0': 'binary',
+                'application/json': 'raw',
+                // @ts-ignore
+              }[store.request.body.contentType]
+            }
+            onChange={(val) => {
+              if (val.target.value === 'binary') {
+                dispatch((state) => {
+                  // @ts-ignore
+                  state.request.body.contentType = '0';
+                  state.request.body.body = '';
+                });
+              }
+              if (val.target.value === 'raw') {
+                dispatch((state) => {
+                  state.request.body.contentType = 'application/json';
+                  state.request.body.body = '';
+                });
+              }
+            }}
+          />
 
           <Select
+            css={css`
+              display: ${isShow ? 'inline-block' : 'none'};
+            `}
             value={store.request.body.contentType}
             bordered={false}
             size={'small'}
@@ -73,8 +96,10 @@ const HttpBody = () => {
             onChange={onChange}
           />
         </div>
-
         <a
+          css={css`
+            display: ${isShow ? 'block' : 'none'};
+          `}
           onClick={() => {
             rawBodyRef.current.prettifyRequestBody();
           }}
@@ -82,8 +107,8 @@ const HttpBody = () => {
           {t('action.prettify')}
         </a>
       </div>
-
-      <RawBody ref={rawBodyRef} />
+      {isShow && <RawBody ref={rawBodyRef} />}
+      {!isShow && <BinaryBody />}
     </div>
   );
 };

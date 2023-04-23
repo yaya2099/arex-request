@@ -5,8 +5,8 @@ import { Breadcrumb, Button, Dropdown, Input, MenuProps, message, Select } from 
 import { FC, useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { Context } from '../../../../providers/ConfigProvider';
 import SmartEnvInput from '../smart/EnvInput';
-import {Context} from "../../../../providers/ConfigProvider";
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -52,7 +52,7 @@ const HttpRequest: FC<HttpRequestProps> = ({ onSave, onSend }) => {
         type: 'loading',
       };
     });
-    onSend(store.request).then((responseAndTestResult:any) => {
+    onSend(store.request).then((responseAndTestResult: any) => {
       dispatch((state) => {
         if (responseAndTestResult.response.type === 'success') {
           state.response = responseAndTestResult.response;
@@ -96,7 +96,11 @@ const HttpRequest: FC<HttpRequestProps> = ({ onSave, onSend }) => {
         <div>
           <Button
             onClick={() => {
-              onSave(store.request);
+              const request = JSON.parse(JSON.stringify(store.request));
+              if (request.body.contentType === '0') {
+                request.body.body = '';
+              }
+              onSave(request);
             }}
           >
             {t('action.save')}
