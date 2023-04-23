@@ -1,6 +1,5 @@
 {
   "name": "arex-request-core",
-  "private": true,
   "version": "0.0.1-beta.2",
   "type": "module",
   "main": "dist/arex-request-core.umd.cjs",
