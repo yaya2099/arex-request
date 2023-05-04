@@ -121,6 +121,17 @@ const SmartEnvInput: FC<SmartEnvInputProps> = ({ value, onChange }) => {
     <div
       ref={smartEnvInputRef}
       css={css`
+        .content-class-no-found {
+          background: #ef4444;
+          color: white !important;
+          border-radius: 2px;
+        }
+
+        .content-class-found {
+          background: #7cb305;
+          color: white !important;
+          border-radius: 2px;
+        }
         border: 1px solid ${theme.token.colorBorder};
         flex: 1;
         //添加 min-width: 0 的原因: https://juejin.cn/post/6974356682574921765

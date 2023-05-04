@@ -34,7 +34,7 @@ function AgentAxios<T>(params: any) {
 }
 
 xspy.onRequest(async (request: any, sendResponse: any) => {
-  console.log(request)
+  console.log(request);
   // 判断是否是pm发的
   if (request.headers['postman-token']) {
     const agentData: any = await AgentAxios({

@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
-import {Button, theme} from 'antd';
-import {useEffect} from "react";
-import {useTheme} from "@emotion/react";
+import { useTheme } from '@emotion/react';
+import { Button, theme } from 'antd';
+import { useEffect } from 'react';
 const { useToken, darkAlgorithm } = theme;
-const AppHeader = ({ onChangeLocale, locale, onChangeTheme, theme }:any) => {
+const AppHeader = ({ onChangeLocale, locale, onChangeTheme, theme }: any) => {
   const theme1 = useTheme();
   return (
     <div

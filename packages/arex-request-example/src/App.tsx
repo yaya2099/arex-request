@@ -18,7 +18,7 @@ const ConfigMiddlewareProvider = ({ children }: any) => {
   );
 };
 
-const ThemeMiddlewareProvider = ({ children }:any) => {
+const ThemeMiddlewareProvider = ({ children }: any) => {
   const token = useToken();
   return <ThemeProvider theme={token.token}>{children}</ThemeProvider>;
 };
