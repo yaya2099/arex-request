@@ -109,6 +109,10 @@ const MainBox = () => {
             breadcrumb={<div></div>}
             environment={{ name: 'dev', variables: [{ key: 'url', value: 'https://m.weibo.cn' }] }}
             config={{}}
+            breadcrumbItems={[{ title: 's' }, { title: 'xxx' }]}
+            onChangeTitle={() => {
+              console.log('dddd');
+            }}
           />
         </div>
       </div>

@@ -20,6 +20,8 @@ export interface HttpProps {
   ) => Promise<{ response: HoppRESTResponse; testResult: PostmanTestResult }>;
   onSave: (r: HoppRESTRequest) => void;
   config: any;
+  breadcrumbItems: { title: string }[];
+  onChangeTitle: ({ value }: { value: string }) => void;
 }
 
 const Http: FC<HttpProps> = ({
@@ -28,6 +30,8 @@ const Http: FC<HttpProps> = ({
   environment,
   onSave,
   breadcrumb,
+  breadcrumbItems,
+  onChangeTitle,
 }) => {
   const { store, dispatch } = useContext(Context);
   useEffect(() => {
@@ -66,7 +70,12 @@ const Http: FC<HttpProps> = ({
               flex-direction: column;
             `}
           >
-            <HttpRequest onSave={onSave} onSend={onSend}></HttpRequest>
+            <HttpRequest
+              breadcrumbItems={breadcrumbItems}
+              onChangeTitle={onChangeTitle}
+              onSave={onSave}
+              onSend={onSend}
+            ></HttpRequest>
             <HttpRequestOptions />
           </div>
         ) : null}

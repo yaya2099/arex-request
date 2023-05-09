@@ -6,6 +6,7 @@ import { FC, useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Context } from '../../../../providers/ConfigProvider';
+import SmartBreadcrumb from '../smart/Breadcrumb';
 import SmartEnvInput from '../smart/EnvInput';
 
 const HeaderWrapper = styled.div`
@@ -19,8 +20,10 @@ const methods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'];
 interface HttpRequestProps {
   onSave: any;
   onSend: any;
+  breadcrumbItems: { title: string }[];
+  onChangeTitle: ({ value }: { value: string }) => void;
 }
-const HttpRequest: FC<HttpRequestProps> = ({ onSave, onSend }) => {
+const HttpRequest: FC<HttpRequestProps> = ({ onSave, onSend, onChangeTitle, breadcrumbItems }) => {
   const { store, dispatch } = useContext(Context);
 
   const { t } = useTranslation();
@@ -77,22 +80,7 @@ const HttpRequest: FC<HttpRequestProps> = ({ onSave, onSend }) => {
           margin-bottom: 8px;
         `}
       >
-        <Breadcrumb
-          items={[
-            {
-              title: 'Home',
-            },
-            {
-              title: <a href=''>Application Center</a>,
-            },
-            {
-              title: <a href=''>Application List</a>,
-            },
-            {
-              title: 'An Application',
-            },
-          ]}
-        />
+        <SmartBreadcrumb items={breadcrumbItems} onChangeTitle={onChangeTitle} />
         <div>
           <Button
             onClick={() => {
