@@ -1,14 +1,15 @@
 import produce, { Draft } from 'immer';
-import {createContext, Dispatch, useEffect, useReducer} from 'react';
+import { createContext, Dispatch, useEffect, useReducer } from 'react';
 import { useTranslation } from 'react-i18next';
 export interface State {
   request: HoppRESTRequest;
   edited: boolean;
   response: HoppRESTResponse | null;
   testResult: PostmanTestResult | null;
+  consoles: any[];
   environment: Environment;
   theme: 'dark' | 'light';
-  locale:string
+  locale: string;
 }
 import { Environment } from '../components/http/data/environment';
 import { HoppRESTRequest } from '../components/http/data/rest';
@@ -24,7 +25,7 @@ export const Context = createContext<
 function reducer(draft: Draft<State>, action: (state: State) => void) {
   return action(draft);
 }
-const ConfigProvider = ({ children, theme, locale }:any) => {
+const ConfigProvider = ({ children, theme, locale }: any) => {
   const [store, dispatch] = useReducer(produce(reducer), defaultState);
   const { i18n } = useTranslation();
   useEffect(() => {

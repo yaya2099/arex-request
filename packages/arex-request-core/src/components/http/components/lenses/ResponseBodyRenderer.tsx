@@ -1,20 +1,20 @@
-import { css, jsx } from '@emotion/react';
+import { css } from '@emotion/react';
 import { Tabs } from 'antd';
 import { FC } from 'react';
 import React from 'react';
 
 import { HoppRESTResponse } from '../../helpers/types/HoppRESTResponse';
-// import { HoppTestResult } from '../../helpers/types/HoppTestResult';
+import Console from '../http/Console';
 import TestResult from '../http/TestResult';
 import LensesHeadersRenderer from './HeadersRenderer';
-import BodySegmented from './renderers/BodySegmented';
 import JSONLensRenderer from './renderers/JSONLensRenderer';
 import RawLensRenderer from './renderers/RawLensRenderer';
 
 const LensesResponseBodyRenderer: FC<{
   response: HoppRESTResponse;
   testResult: any;
-}> = ({ response, testResult }) => {
+  consoles: any[];
+}> = ({ response, testResult, consoles }) => {
   const items = [
     {
       label: 'JSON',
@@ -41,6 +41,11 @@ const LensesResponseBodyRenderer: FC<{
       label: 'Result',
       key: '3',
       children: <TestResult testResult={testResult} />,
+    },
+    {
+      label: 'Console',
+      key: '4',
+      children: <Console logs={consoles} />,
     },
   ];
   return (

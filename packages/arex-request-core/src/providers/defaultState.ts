@@ -21,6 +21,7 @@ export const defaultState: State = {
   },
   edited: false,
   response: null,
+  consoles: [],
   environment: { name: 'dev', variables: [{ key: 'name', value: 'ssss' }] },
   theme: 'light',
   // locale: 'en',

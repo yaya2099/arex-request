@@ -60,8 +60,7 @@ const HttpRequest: FC<HttpRequestProps> = ({ onSave, onSend, onChangeTitle, brea
         if (responseAndTestResult.response.type === 'success') {
           state.response = responseAndTestResult.response;
           state.testResult = responseAndTestResult.testResult;
-          // @ts-ignore
-          state.ewaiResult = responseAndTestResult.ewaiResult;
+          state.consoles = responseAndTestResult.consoles;
         }
       });
     });

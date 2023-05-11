@@ -36,6 +36,7 @@ const HttpResponse = () => {
         <LensesResponseBodyRenderer
           response={store.response as HoppRESTResponse}
           testResult={store.testResult as PostmanTestResult}
+          consoles={store.consoles}
         />
       ) : null}
     </div>
