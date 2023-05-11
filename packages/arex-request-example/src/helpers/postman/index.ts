@@ -86,10 +86,10 @@ export async function sendRequest(hopReq: any, environment: any) {
             consolesBox.push(logs);
           },
           prerequest: function (err: any, cursor: any, results: any, item: any) {
-            console.log('');
+            // console.log('');
           },
           responseData: function (cursor: any, data: any) {
-            console.log('');
+            // console.log('');
           },
           item: function (err: any, cursor: any, item: any, visualizer: any) {
             console.log('pm logs:', consolesBox);

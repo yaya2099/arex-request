@@ -9,8 +9,9 @@ import AppFooter from '../components/app/Footer';
 import AppHeader from '../components/app/Header';
 import { sendRequest } from '../helpers/postman';
 import useDarkMode from '../hooks/use-dark-mode';
-import { queryWorkspaceById } from '../services/FileSystemService';
-import queryRequest from '../services/FileSystemService/queryRequest';
+import { requestCollection } from '../mocks/requestCollection';
+// import { queryWorkspaceById } from '../services/FileSystemService';
+// import queryRequest from '../services/FileSystemService/queryRequest';
 
 const MainBox = () => {
   const [locale, setLocale] = useState(localStorage.getItem('locale') || 'en');
@@ -18,10 +19,10 @@ const MainBox = () => {
   const darkMode = useDarkMode();
   const theme1 = useTheme();
   function onSave(r: any) {
-    localStorage.setItem('req', JSON.stringify(r));
-    message.success('保存成功');
+    console.log(r)
+    // message.success('保存成功');
   }
-  const [selectedKey, setSelectedKey] = useState('');
+  const [selectedKey, setSelectedKey] = useState('0');
   const [selectedKeyNodeType, setSelectedKeyNodeType] = useState('');
   function onSend(request: any, environment: any) {
     return sendRequest(request, environment).then((res: any) => {
@@ -32,32 +33,10 @@ const MainBox = () => {
     });
   }
   // request
-  const { data: data1 } = useRequest(
-    () => {
-      return queryRequest({ id: selectedKey, nodeType: 1 });
-    },
-    {
-      refreshDeps: [selectedKey, selectedKeyNodeType],
-    },
-  );
   const testReqaData = useMemo(() => {
-    return {
-      preRequestScript: '',
-      v: '',
-      headers: [],
-      name: '',
-      body: { contentType: 'application/json', body: '' } as any,
-      auth: { authActive: false, authType: 'none' } as any,
-      testScript: '',
-      endpoint: data1?.address?.endpoint || '',
-      method: data1?.address?.method || '',
-      params: [],
-    };
-  }, [data1]);
+    return requestCollection.find((r) => r.id === selectedKey);
+  }, [selectedKey]);
   // collection
-  const { data } = useRequest(() => {
-    return queryWorkspaceById({ id: '644a282d3867983e29d1b8f5' });
-  });
   return (
     <RequestConfigProvider locale={locale} theme={theme}>
       <AppHeader
@@ -83,14 +62,35 @@ const MainBox = () => {
             border-right: 1px solid ${theme1.colorBorder};
           `}
         >
-          <Collection
-            treeData={data || []}
-            onSelect={(keys) => {
-              if (keys.length > 0) {
-                setSelectedKey(keys[0] as string);
-              }
-            }}
-          />
+          <div
+            css={css`
+              padding: 10px;
+            `}
+          >
+            {/*{selectedKey}*/}
+            {requestCollection.map((r) => {
+              return (
+                <div
+                  css={css`
+                    margin-bottom: 5px;
+                    padding: 5px;
+                    border-radius: 5px;
+                    background-color: ${selectedKey === r.id ? 'rgba(0,0,0,.1)' : 'none'};
+                    &:hover {
+                      background-color: rgba(0, 0, 0, 0.1);
+                      cursor: pointer;
+                    }
+                  `}
+                  key={r.id}
+                  onClick={() => {
+                    setSelectedKey(r.id);
+                  }}
+                >
+                  {r.title}
+                </div>
+              );
+            })}
+          </div>
         </div>
         <div
           css={css`
@@ -101,15 +101,16 @@ const MainBox = () => {
             onSend={(request) => {
               return onSend(request, {
                 name: 'dev',
-                variables: [{ key: 'url', value: 'https://m.weibo.cn' }],
+                variables: [{ key: 'url', value: 'http://124.223.27.177:18080' }],
               });
             }}
             onSave={onSave}
+            // @ts-ignore
             value={testReqaData}
             breadcrumb={<div></div>}
-            environment={{ name: 'dev', variables: [{ key: 'url', value: 'https://m.weibo.cn' }] }}
+            environment={{ name: 'dev', variables: [{ key: 'url', value: 'http://124.223.27.177:18080' }] }}
             config={{}}
-            breadcrumbItems={[{ title: 's' }, { title: 'xxx' }]}
+            breadcrumbItems={[{ title: 'Test' }, { title: 'hoppscotch' }, { title: 'echo' }]}
             onChangeTitle={() => {
               console.log('dddd');
             }}
