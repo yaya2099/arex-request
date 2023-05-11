@@ -1,8 +1,5 @@
 import { css, useTheme } from '@emotion/react';
-import { useRequest } from 'ahooks';
-import { message } from 'antd';
 import { ConfigProvider as RequestConfigProvider, Http } from 'arex-request-core';
-import { Collection } from 'arex-request-core';
 import { useMemo, useState } from 'react';
 
 import AppFooter from '../components/app/Footer';
@@ -10,25 +7,21 @@ import AppHeader from '../components/app/Header';
 import { sendRequest } from '../helpers/postman';
 import useDarkMode from '../hooks/use-dark-mode';
 import { requestCollection } from '../mocks/requestCollection';
-// import { queryWorkspaceById } from '../services/FileSystemService';
-// import queryRequest from '../services/FileSystemService/queryRequest';
-
 const MainBox = () => {
   const [locale, setLocale] = useState(localStorage.getItem('locale') || 'en');
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   const darkMode = useDarkMode();
   const theme1 = useTheme();
   function onSave(r: any) {
-    console.log(r)
-    // message.success('保存成功');
+    console.log(r);
   }
   const [selectedKey, setSelectedKey] = useState('0');
-  const [selectedKeyNodeType, setSelectedKeyNodeType] = useState('');
   function onSend(request: any, environment: any) {
     return sendRequest(request, environment).then((res: any) => {
       return {
         response: res.response,
         testResult: res.testResult,
+        consoles: res.consoles,
       };
     });
   }
@@ -108,7 +101,10 @@ const MainBox = () => {
             // @ts-ignore
             value={testReqaData}
             breadcrumb={<div></div>}
-            environment={{ name: 'dev', variables: [{ key: 'url', value: 'http://124.223.27.177:18080' }] }}
+            environment={{
+              name: 'dev',
+              variables: [{ key: 'url', value: 'http://124.223.27.177:18080' }],
+            }}
             config={{}}
             breadcrumbItems={[{ title: 'Test' }, { title: 'hoppscotch' }, { title: 'echo' }]}
             onChangeTitle={() => {
