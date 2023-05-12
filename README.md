@@ -36,8 +36,6 @@ import { ConfigProvider as RequestConfigProvider, Http } from 'arex-request-core
 ## 例子
 
 ```tsx
-import { ConfigProvider as RequestConfigProvider, Http } from 'arex-request-core'
-
 function MainBox({ src }) {
     const requestValue = {
       id: '1',
