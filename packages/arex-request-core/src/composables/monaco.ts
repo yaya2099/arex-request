@@ -37,7 +37,7 @@ export function useMonaco(el: any, value: string, options: Options) {
 
   const normalMode: monaco.editor.IStandaloneEditorConstructionOptions = {
     fontSize: 12,
-    wordWrap:'wordWrapColumn'
+    wordWrap: 'wordWrapColumn',
   };
 
   const initView = (el: any) => {
@@ -53,7 +53,7 @@ export function useMonaco(el: any, value: string, options: Options) {
         },
         scrollBeyondLastLine: false,
         theme: options.extendedEditorConfig.theme === 'dark' ? 'vs-dark' : 'vs',
-        readOnly:options.extendedEditorConfig.readOnly
+        readOnly: options.extendedEditorConfig.readOnly,
       }),
     );
   };

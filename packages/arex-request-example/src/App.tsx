@@ -1,9 +1,9 @@
-import { css, ThemeProvider } from '@emotion/react';
+import { css } from '@emotion/react';
 import { ConfigProvider, theme } from 'antd';
 
 import useDarkMode from './hooks/use-dark-mode';
 import MainBox from './layouts/MainBox';
-const { useToken, darkAlgorithm } = theme;
+const { darkAlgorithm } = theme;
 
 const ConfigMiddlewareProvider = ({ children }: any) => {
   const darkMode = useDarkMode();
@@ -18,11 +18,6 @@ const ConfigMiddlewareProvider = ({ children }: any) => {
   );
 };
 
-const ThemeMiddlewareProvider = ({ children }: any) => {
-  const token = useToken();
-  return <ThemeProvider theme={token.token}>{children}</ThemeProvider>;
-};
-
 function App() {
   return (
     <div
@@ -32,9 +27,7 @@ function App() {
       `}
     >
       <ConfigMiddlewareProvider>
-        <ThemeMiddlewareProvider>
-          <MainBox></MainBox>
-        </ThemeMiddlewareProvider>
+        <MainBox />
       </ConfigMiddlewareProvider>
     </div>
   );

@@ -6,7 +6,7 @@ export const requestCollection = [
     v: '',
     headers: [],
     name: '',
-    body: { contentType: 'application/json', body: '' } as any,
+    body: { contentType: 'application/json', body: JSON.stringify({ name: 'zt' }) } as any,
     auth: { authActive: false, authType: 'none' } as any,
     testScript: '',
     endpoint: '{{url}}/post',

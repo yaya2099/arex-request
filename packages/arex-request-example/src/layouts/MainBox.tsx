@@ -1,4 +1,5 @@
 import { css, useTheme } from '@emotion/react';
+import { theme } from 'antd';
 import { ConfigProvider as RequestConfigProvider, Http } from 'arex-request-core';
 import { useMemo, useState } from 'react';
 
@@ -7,11 +8,12 @@ import AppHeader from '../components/app/Header';
 import { sendRequest } from '../helpers/postman';
 import useDarkMode from '../hooks/use-dark-mode';
 import { requestCollection } from '../mocks/requestCollection';
+const { useToken } = theme;
 const MainBox = () => {
   const [locale, setLocale] = useState(localStorage.getItem('locale') || 'en');
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   const darkMode = useDarkMode();
-  const theme1 = useTheme();
+  const theme1 = useToken();
   function onSave(r: any) {
     console.log(r);
   }
@@ -52,7 +54,7 @@ const MainBox = () => {
         <div
           css={css`
             width: 360px;
-            border-right: 1px solid ${theme1.colorBorder};
+            border-right: 1px solid ${theme1.token.colorBorder};
           `}
         >
           <div

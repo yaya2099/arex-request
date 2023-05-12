@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import React from 'react';
 
+import { HoppRESTHeader } from '../../data/rest';
 // import { HoppRESTHeader } from '../../helpers/data/rest';
 // import { HoppRESTHeader } from '../../data/rest';
 import LensesHeadersRendererEntry from './HeadersRendererEntry';
-import { HoppRESTHeader } from '../../data/rest';
 
 const LensesHeadersRenderer: FC<{ headers: HoppRESTHeader[] }> = ({ headers }) => {
   return (

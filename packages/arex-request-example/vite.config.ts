@@ -31,7 +31,7 @@ export default defineConfig({
         target: 'http://10.5.153.1:8090',
         changeOrigin: true,
         rewrite: (path) => path.replace('/report', '/api'),
-      }
+      },
     },
   },
 });

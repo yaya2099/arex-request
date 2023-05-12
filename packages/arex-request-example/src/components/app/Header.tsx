@@ -1,13 +1,15 @@
 import { css } from '@emotion/react';
 import { useTheme } from '@emotion/react';
-import { Button } from 'antd';
+import { Button, theme } from 'antd';
+const { useToken } = theme;
 const AppHeader = ({ onChangeLocale, locale, onChangeTheme, theme }: any) => {
-  const theme1 = useTheme();
+  // const theme1 = useTheme();
+  const theme1 = useToken();
   return (
     <div
       css={css`
         height: 36px;
-        border-bottom: 1px solid ${theme1.colorBorder};
+        border-bottom: 1px solid ${theme1.token.colorBorder};
         display: flex;
         justify-content: space-between;
         align-items: center;

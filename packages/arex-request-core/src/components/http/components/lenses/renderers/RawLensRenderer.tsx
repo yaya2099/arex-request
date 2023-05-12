@@ -15,7 +15,7 @@ const RawLensRenderer: FC<{ response: HoppRESTResponse }> = ({ response }) => {
       lineWrapping: true,
       mode: 'txt',
       theme: store.theme,
-      readOnly:true
+      readOnly: true,
     },
     onChange: (value: string) => {
       console.log();

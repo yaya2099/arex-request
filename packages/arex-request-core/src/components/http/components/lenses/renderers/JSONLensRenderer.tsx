@@ -14,7 +14,7 @@ function coppyUrl(text: string) {
   copy(text);
   message.success('copy success');
 }
-function strToJson(str:string) {
+function strToJson(str: string) {
   try {
     return JSON.parse(str);
   } catch (e) {
@@ -32,7 +32,7 @@ const JSONLensRenderer: FC<{ response: HoppRESTResponse }> = ({ response }) => {
       lineWrapping: true,
       mode: 'json',
       theme: store.theme,
-      readOnly:true
+      readOnly: true,
     },
     onChange: (value: string) => {
       console.log();

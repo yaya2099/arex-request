@@ -1,68 +1,95 @@
-import { css, jsx } from '@emotion/react';
-import { Badge, Tabs, Tag } from 'antd';
-import { useContext, useState } from 'react';
+import { css } from '@emotion/react';
+import { Badge, Tabs, Tag, theme } from 'antd';
+import { useContext, useMemo, useState } from 'react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { Context } from '../../../../providers/ConfigProvider';
 import HttpBody from './Body';
 import HttpHeaders from './Headers';
 import HttpParameters from './Parameters';
 import HttpPreRequestScript from './PreRequestScript';
 import HttpTests from './Tests';
+const { useToken } = theme;
 const HttpRequestOptions = () => {
+  const token = useToken();
   const { t } = useTranslation();
   const [activeKey, setActiveKey] = useState('3');
-  const store = {
-    request: {
-      params: [],
-      headers: [],
-    },
-  };
-  const items = [
-    {
-      label: (
-        <div>
-          {t('tab.parameters')}{' '}
-          <Tag
-            css={css`
-              display: ${store.request.params.length > 0 ? 'inline-block' : 'none'};
-            `}
-          >
-            {store.request.params.length}
-          </Tag>
-        </div>
-      ),
-      key: '0',
-      children: <HttpParameters />,
-      forceRender: true,
-    },
-    {
-      label: (
-        <div>
-          {t('tab.headers')}{' '}
-          <Tag
-            css={css`
-              display: ${store.request.headers.length > 0 ? 'inline-block' : 'none'};
-            `}
-          >
-            {store.request.headers.length}
-          </Tag>
-        </div>
-      ),
-      key: '1',
-      children: <HttpHeaders />,
-      forceRender: true,
-    },
-    // PreRequestScript
-    { label: t('tab.body'), key: '3', children: <HttpBody />, forceRender: true },
-    {
-      label: t('tab.pre_request_script'),
-      key: '4',
-      children: <HttpPreRequestScript />,
-      forceRender: true,
-    },
-    { label: t('tab.tests'), key: '5', children: <HttpTests />, forceRender: true },
-  ];
+  const { store } = useContext(Context);
+
+  const items = useMemo(() => {
+    const _items = [
+      {
+        label: (
+          <div>
+            {t('tab.parameters')}{' '}
+            <Tag
+              css={css`
+                display: ${store.request.params.length > 0 ? 'inline-block' : 'none'};
+              `}
+            >
+              {store.request.params.length}
+            </Tag>
+          </div>
+        ),
+        key: '0',
+        children: <HttpParameters />,
+        forceRender: true,
+      },
+      {
+        label: (
+          <div>
+            {t('tab.headers')}{' '}
+            <Tag
+              css={css`
+                display: ${store.request.headers.length > 0 ? 'inline-block' : 'none'};
+              `}
+            >
+              {store.request.headers.length}
+            </Tag>
+          </div>
+        ),
+        key: '1',
+        children: <HttpHeaders />,
+        forceRender: true,
+      },
+      // PreRequestScript
+      { label: t('tab.body'), key: '3', children: <HttpBody />, forceRender: true },
+      {
+        label: (
+          <div>
+            {t('tab.pre_request_script')}{' '}
+            <Badge
+              color={token.token.colorPrimary}
+              css={css`
+                display: ${store.request.preRequestScript.length > 0 ? 'inline-block' : 'none'};
+              `}
+            />
+          </div>
+        ),
+        key: '4',
+        children: <HttpPreRequestScript />,
+        forceRender: true,
+      },
+      {
+        label: (
+          <div>
+            {t('tab.tests')}{' '}
+            <Badge
+              color={token.token.colorPrimary}
+              css={css`
+                display: ${store.request.testScript.length > 0 ? 'inline-block' : 'none'};
+              `}
+            />
+          </div>
+        ),
+        key: '5',
+        children: <HttpTests />,
+        forceRender: true,
+      },
+    ];
+    return _items;
+  }, [store.request]);
   return (
     <div
       css={css`

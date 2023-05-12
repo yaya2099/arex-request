@@ -20,10 +20,6 @@ export const ResponseTestHeader = styled.div`
   }
 `;
 
-const ThemeColorPrimaryButton = styled(Button)`
-  color: ${(props) => props.theme.colorPrimary} !important;
-`;
-
 export const ResponseTestWrapper = styled.div`
   overflow-y: auto;
   display: flex;
@@ -41,6 +37,10 @@ const HttpTests = () => {
   const { store, dispatch } = useContext(Context);
   const { t } = useTranslation();
   const theme = useToken();
+
+  const ThemeColorPrimaryButton = styled(Button)`
+    color: ${(props) => theme.token.colorPrimary} !important;
+  `;
   const codeSnippet = [
     {
       name: 'Send a request',

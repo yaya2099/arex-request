@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useMonaco } from '../../../../composables/monaco';
 import { Context } from '../../../../providers/ConfigProvider';
 
-const HttpRawBody = (props:any, ref:any) => {
+const HttpRawBody = (props: any, ref: any) => {
   const { store, dispatch } = useContext(Context);
   const { t } = useTranslation();
   useImperativeHandle(ref, () => {

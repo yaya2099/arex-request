@@ -12,6 +12,7 @@ const HttpHeaders = () => {
   const [requestHeaders, setRequestHeaders] = useImmer<any>([]);
 
   useEffect(() => {
+    console.log(store.request);
     setRequestHeaders(
       store.request.headers.map((i: any) => ({
         ...i,
@@ -28,6 +29,7 @@ const HttpHeaders = () => {
 
   return (
     <div>
+      {JSON.stringify(requestHeaders)}
       <FormHeader update={setRequestHeaders} title={t('request.header_list')} />
       <FormTable
         size='small'
