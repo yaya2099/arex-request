@@ -12,7 +12,7 @@ import { Context } from '../../../../../providers/ConfigProvider';
 import { HoppRESTResponse } from '../../../helpers/types/HoppRESTResponse';
 function coppyUrl(text: string) {
   copy(text);
-  message.success('copy success🎉');
+  message.success('copy success');
 }
 function strToJson(str:string) {
   try {
@@ -72,7 +72,8 @@ const JSONLensRenderer: FC<{ response: HoppRESTResponse }> = ({ response }) => {
       </div>
       <div
         css={css`
-          height: 100%;
+          flex: 1;
+          overflow-y: auto;
         `}
       >
         <div

@@ -52,6 +52,9 @@ const LensesResponseBodyRenderer: FC<{
     <div
       css={css`
         flex: 1;
+        .ant-tabs-content-holder {
+          height: 100px;
+        }
       `}
     >
       <Tabs style={{ height: '100%' }} items={items} />
