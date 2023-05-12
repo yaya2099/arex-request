@@ -1,6 +1,6 @@
 import { css, useTheme } from '@emotion/react';
 import { theme } from 'antd';
-import { ConfigProvider as RequestConfigProvider, Http } from 'arex-request-core';
+import { Http } from 'arex-request-core';
 import { useMemo, useState } from 'react';
 
 import AppFooter from '../components/app/Footer';
@@ -100,7 +100,7 @@ const MainBox = () => {
             locale={locale}
             theme={theme}
             // 以上是配置
-            onSend={(request) => {
+            onSend={(request:any) => {
               return onSend(request, {
                 name: 'dev',
                 variables: [{ key: 'url', value: 'http://124.223.27.177:18080' }],
