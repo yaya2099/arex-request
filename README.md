@@ -30,7 +30,7 @@ pnpm add arex-request-core
 ## 使用
 
 ```js
-import { ConfigProvider as RequestConfigProvider, Http } from 'arex-request-core'
+import { Http } from 'arex-request-core'
 ```
 
 ## 例子
