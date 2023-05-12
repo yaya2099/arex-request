@@ -1,5 +1,4 @@
 import { css } from '@emotion/react';
-import { useTheme } from '@emotion/react';
 import { theme } from 'antd';
 const { useToken } = theme;
 const AppFooter = () => {

@@ -10,7 +10,6 @@ const HttpHeaders = () => {
   const { t } = useTranslation();
   const { store, dispatch } = useContext(Context);
   const [requestHeaders, setRequestHeaders] = useImmer<any>([]);
-
   useEffect(() => {
     setRequestHeaders(
       store.request.headers.map((i: any) => ({

@@ -33,7 +33,11 @@ const MainBox = () => {
   }, [selectedKey]);
   // collection
   return (
-    <RequestConfigProvider locale={locale} theme={theme}>
+    <div
+      css={css`
+        height: 100vh;
+      `}
+    >
       <AppHeader
         locale={locale}
         onChangeLocale={(selectedLocale: any) => {
@@ -93,6 +97,9 @@ const MainBox = () => {
           `}
         >
           <Http
+            locale={locale}
+            theme={theme}
+            // 以上是配置
             onSend={(request) => {
               return onSend(request, {
                 name: 'dev',
@@ -116,7 +123,7 @@ const MainBox = () => {
         </div>
       </div>
       <AppFooter></AppFooter>
-    </RequestConfigProvider>
+    </div>
   );
 };
 
