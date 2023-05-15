@@ -1,11 +1,8 @@
-import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { css } from '@emotion/react';
-import { Empty, List, Progress, Tag, Typography } from 'antd';
+import { Empty, Tag, Typography } from 'antd';
 import { FC } from 'react';
 
 import SmartLink from '../smart/Link';
-
-// import { HoppTestResult } from '../../helpers/types/HoppTestResult';
 const { Text, Link } = Typography;
 
 const testResultWrap = css`
@@ -60,7 +57,6 @@ const TestResult: FC<{ testResult: any }> = ({ testResult }) => {
               >
                 {t.name}
               </Text>
-              {/*<Text*/}
             </div>
           );
         } else {
@@ -75,7 +71,6 @@ const TestResult: FC<{ testResult: any }> = ({ testResult }) => {
               >
                 {t.name} | AssertionError: {t.error.message}
               </Text>
-              {/*<Text*/}
             </div>
           );
         }
