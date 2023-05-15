@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
-import { Tabs } from 'antd';
-import { FC } from 'react';
+import { Badge, Tabs, Tag } from 'antd';
+import { FC, useMemo } from 'react';
 import React from 'react';
 
 import { HoppRESTResponse } from '../../helpers/types/HoppRESTResponse';
@@ -15,6 +15,13 @@ const LensesResponseBodyRenderer: FC<{
   testResult: any;
   consoles: any[];
 }> = ({ response, testResult, consoles }) => {
+  const headers = useMemo(() => {
+    if (response.type === 'success') {
+      return response.headers;
+    } else {
+      return [];
+    }
+  }, [response]);
   const items = [
     {
       label: 'JSON',
@@ -32,18 +39,49 @@ const LensesResponseBodyRenderer: FC<{
       children: <RawLensRenderer response={response} />,
     },
     {
-      label: 'Headers',
+      label: (
+        <div>
+          {'Headers'}{' '}
+          <Tag
+            css={css`
+              display: ${headers.length > 0 ? 'inline-block' : 'none'};
+            `}
+          >
+            {headers.length}
+          </Tag>
+        </div>
+      ),
       key: '2',
       // @ts-ignore
       children: <LensesHeadersRenderer headers={response.headers} />,
     },
     {
-      label: 'Result',
+      label: (
+        <div>
+          {'Result'}{' '}
+          <Badge
+            color={'blue'}
+            css={css`
+              display: ${testResult.length > 0 ? 'inline-block' : 'none'};
+            `}
+          />
+        </div>
+      ),
       key: '3',
       children: <TestResult testResult={testResult} />,
     },
     {
-      label: 'Console',
+      label: (
+        <div>
+          {'Console'}{' '}
+          <Badge
+            color={'blue'}
+            css={css`
+              display: ${consoles.length > 0 ? 'inline-block' : 'none'};
+            `}
+          />
+        </div>
+      ),
       key: '4',
       children: <Console logs={consoles} />,
     },

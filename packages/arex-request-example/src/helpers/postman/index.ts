@@ -111,10 +111,7 @@ export async function sendRequest(hopReq: any, environment: any) {
           ) {
             res = {
               type: 'success',
-              headers: Object.keys(response.headers).map((key) => ({
-                key: key,
-                value: String(response.headers[key]),
-              })),
+              headers: response.headers.members,
               statusCode: response.code,
               body: response.stream,
               meta: {
