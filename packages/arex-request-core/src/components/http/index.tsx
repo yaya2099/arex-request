@@ -12,9 +12,9 @@ import { HoppRESTResponse } from './helpers/types/HoppRESTResponse';
 import { PostmanTestResult } from './helpers/types/PostmanTestResult';
 
 export interface HttpProps {
+  height: string;
   environment: Environment;
   value: HoppRESTRequest | null;
-  breadcrumb: any;
   onSend: (
     r: HoppRESTRequest,
   ) => Promise<{ response: HoppRESTResponse; testResult: PostmanTestResult }>;
@@ -29,9 +29,9 @@ const Http: FC<HttpProps> = ({
   onSend,
   environment,
   onSave,
-  breadcrumb,
   breadcrumbItems,
   onChangeTitle,
+  height,
 }) => {
   const { store, dispatch } = useContext(Context);
   useEffect(() => {
@@ -50,7 +50,7 @@ const Http: FC<HttpProps> = ({
   return (
     <Allotment
       css={css`
-        height: 100%;
+        height: ${height};
         .ant-tabs-content {
           height: 100%;
           .ant-tabs-tabpane {
