@@ -97,6 +97,7 @@ const MainBox = () => {
           `}
         >
           <Http
+            height={'100%'}
             locale={locale}
             theme={theme}
             // 以上是配置
@@ -109,7 +110,6 @@ const MainBox = () => {
             onSave={onSave}
             // @ts-ignore
             value={testReqaData}
-            breadcrumb={<div></div>}
             environment={{
               name: 'dev',
               variables: [{ key: 'url', value: 'http://124.223.27.177:18080' }],
