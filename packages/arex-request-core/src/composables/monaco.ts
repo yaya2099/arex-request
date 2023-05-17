@@ -1,4 +1,3 @@
-import { theme } from 'antd';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import { useEffect, useState } from 'react';
 // 完全去掉间隙

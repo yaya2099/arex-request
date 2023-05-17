@@ -17,7 +17,6 @@ export default defineConfig({
     setupFiles: ['./src/setupTests.ts'],
   },
   build: {
-    sourcemap: true,
     outDir: './dist',
     emptyOutDir: true,
     lib: {
