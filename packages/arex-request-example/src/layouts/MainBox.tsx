@@ -1,6 +1,6 @@
-import { css, useTheme } from '@emotion/react';
+import { css } from '@emotion/react';
 import { theme } from 'antd';
-import { Http } from 'arex-request-core';
+import { Http, HttpProps } from 'arex-request-core';
 import { useMemo, useState } from 'react';
 
 import AppFooter from '../components/app/Footer';
@@ -14,9 +14,9 @@ const MainBox = () => {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   const darkMode = useDarkMode();
   const theme1 = useToken();
-  function onSave(r: any) {
+  const onSave: HttpProps['onSave'] = (r) => {
     console.log(r);
-  }
+  };
   const [selectedKey, setSelectedKey] = useState('0');
   function onSend(request: any, environment: any) {
     return sendRequest(request, environment).then((res: any) => {
@@ -100,7 +100,7 @@ const MainBox = () => {
             locale={locale}
             theme={theme}
             // 以上是配置
-            onSend={(request:any) => {
+            onSend={(request) => {
               return onSend(request, {
                 name: 'dev',
                 variables: [{ key: 'url', value: 'http://124.223.27.177:18080' }],
@@ -116,8 +116,8 @@ const MainBox = () => {
             }}
             config={{}}
             breadcrumbItems={[{ title: 'Test' }, { title: 'hoppscotch' }, { title: 'echo' }]}
-            onChangeTitle={() => {
-              console.log('dddd');
+            onChangeTitle={({ value }) => {
+              console.log(value);
             }}
           />
         </div>
