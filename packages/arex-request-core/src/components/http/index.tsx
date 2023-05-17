@@ -14,7 +14,7 @@ import { PostmanTestResult } from './helpers/types/PostmanTestResult';
 export interface HttpProps {
   height: string;
   environment: Environment;
-  value: HoppRESTRequest | null;
+  value: HoppRESTRequest | undefined;
   onSend: (
     r: HoppRESTRequest,
   ) => Promise<{ response: HoppRESTResponse; testResult: PostmanTestResult }>;
