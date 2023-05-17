@@ -3,7 +3,7 @@ import { Badge, Tabs, Tag } from 'antd';
 import { FC, useMemo } from 'react';
 import React from 'react';
 
-import { HoppRESTResponse } from '../../helpers/types/HoppRESTResponse';
+import { ArexRESTResponse } from '../../helpers/types/ArexRESTResponse';
 import Console from '../http/Console';
 import TestResult from '../http/TestResult';
 import LensesHeadersRenderer from './HeadersRenderer';
@@ -11,7 +11,7 @@ import JSONLensRenderer from './renderers/JSONLensRenderer';
 import RawLensRenderer from './renderers/RawLensRenderer';
 
 const LensesResponseBodyRenderer: FC<{
-  response: HoppRESTResponse;
+  response: ArexRESTResponse;
   testResult: any;
   consoles: any[];
 }> = ({ response, testResult, consoles }) => {

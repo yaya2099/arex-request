@@ -7,18 +7,18 @@ import HttpRequest from './components/http/Request';
 import HttpRequestOptions from './components/http/RequestOptions';
 import HttpResponse from './components/http/Response';
 import { Environment } from './data/environment';
-import { HoppRESTRequest } from './data/rest';
-import { HoppRESTResponse } from './helpers/types/HoppRESTResponse';
+import { ArexRESTRequest } from './data/rest';
+import { ArexRESTResponse } from './helpers/types/ArexRESTResponse';
 import { PostmanTestResult } from './helpers/types/PostmanTestResult';
 
 export interface HttpProps {
   height: string;
   environment: Environment;
-  value: HoppRESTRequest | undefined;
+  value: ArexRESTRequest | undefined;
   onSend: (
-    r: HoppRESTRequest,
-  ) => Promise<{ response: HoppRESTResponse; testResult: PostmanTestResult }>;
-  onSave: (r: HoppRESTRequest) => void;
+    r: ArexRESTRequest,
+  ) => Promise<{ response: ArexRESTResponse; testResult: PostmanTestResult }>;
+  onSave: (r: ArexRESTRequest) => void;
   config: any;
   breadcrumbItems: { title: string }[];
   onChangeTitle: ({ value }: { value: string }) => void;

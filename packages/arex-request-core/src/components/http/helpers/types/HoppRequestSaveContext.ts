@@ -1,6 +1,6 @@
 // import { HoppRESTRequest } from '@hoppscotch/data';
 
-import { HoppRESTRequest } from '../../data/rest';
+import { ArexRESTRequest } from '../../data/rest';
 
 /**
  * We use the save context to figure out
@@ -25,7 +25,7 @@ export type HoppRequestSaveContext =
       /**
        * Current request
        */
-      req?: HoppRESTRequest;
+      req?: ArexRESTRequest;
     }
   | {
       /**
@@ -47,5 +47,5 @@ export type HoppRequestSaveContext =
       /**
        * Current request
        */
-      req?: HoppRESTRequest;
+      req?: ArexRESTRequest;
     };

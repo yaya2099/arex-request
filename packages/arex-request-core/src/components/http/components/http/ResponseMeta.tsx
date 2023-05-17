@@ -4,11 +4,11 @@ import { FC, useMemo } from 'react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { HoppRESTResponse } from '../../helpers/types/HoppRESTResponse';
+import { ArexRESTResponse } from '../../helpers/types/ArexRESTResponse';
 import { getStatusCodeReasonPhrase } from '../../helpers/utils/statusCodes';
 // import { getStatusCodeReasonPhrase } from '../../helpers/utils/statusCodes';
 
-const HttpResponseMeta: FC<{ response: HoppRESTResponse | null }> = ({ response }) => {
+const HttpResponseMeta: FC<{ response: ArexRESTResponse | null }> = ({ response }) => {
   const { t } = useTranslation();
   const tabCss = css`
     color: #10b981;

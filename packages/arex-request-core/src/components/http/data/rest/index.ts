@@ -39,7 +39,7 @@ export type HoppRESTReqBody =
       body: null;
     };
 
-export interface HoppRESTRequest {
+export interface ArexRESTRequest {
   v: string;
   id?: string; // Firebase Firestore ID
 
@@ -56,14 +56,14 @@ export interface HoppRESTRequest {
   body: HoppRESTReqBody;
 }
 
-export function makeRESTRequest(x: Omit<HoppRESTRequest, 'v'>): HoppRESTRequest {
+export function makeRESTRequest(x: Omit<ArexRESTRequest, 'v'>): ArexRESTRequest {
   return {
     ...x,
     v: RESTReqSchemaVersion,
   };
 }
 
-export function isHoppRESTRequest(x: any): x is HoppRESTRequest {
+export function isHoppRESTRequest(x: any): x is ArexRESTRequest {
   return x && typeof x === 'object' && 'v' in x;
 }
 
@@ -81,7 +81,7 @@ function parseRequestBody(x: any): HoppRESTReqBody {
   };
 }
 
-export function translateToNewRequest(x: any): HoppRESTRequest {
+export function translateToNewRequest(x: any): ArexRESTRequest {
   if (isHoppRESTRequest(x)) {
     return x;
   } else {
@@ -109,7 +109,7 @@ export function translateToNewRequest(x: any): HoppRESTRequest {
 
     const auth = parseOldAuth(x);
 
-    const result: HoppRESTRequest = {
+    const result: ArexRESTRequest = {
       name,
       endpoint,
       headers,

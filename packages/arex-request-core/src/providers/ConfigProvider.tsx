@@ -2,9 +2,9 @@ import produce, { Draft } from 'immer';
 import { createContext, Dispatch, useEffect, useReducer } from 'react';
 import { useTranslation } from 'react-i18next';
 export interface State {
-  request: HoppRESTRequest;
+  request: ArexRESTRequest;
   edited: boolean;
-  response: HoppRESTResponse | null;
+  response: ArexRESTResponse | null;
   testResult: PostmanTestResult | null;
   consoles: any[];
   environment: Environment;
@@ -12,8 +12,8 @@ export interface State {
   locale: string;
 }
 import { Environment } from '../components/http/data/environment';
-import { HoppRESTRequest } from '../components/http/data/rest';
-import { HoppRESTResponse } from '../components/http/helpers/types/HoppRESTResponse';
+import { ArexRESTRequest } from '../components/http/data/rest';
+import { ArexRESTResponse } from '../components/http/helpers/types/ArexRESTResponse';
 import { PostmanTestResult } from '../components/http/helpers/types/PostmanTestResult';
 import { defaultState } from './defaultState';
 export const Context = createContext<

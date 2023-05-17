@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useMonaco } from '../../../../../composables/monaco';
 import { Context } from '../../../../../providers/ConfigProvider';
 // import { useMonaco } from '../../../../../../../composables/monaco';
-import { HoppRESTResponse } from '../../../helpers/types/HoppRESTResponse';
+import { ArexRESTResponse } from '../../../helpers/types/ArexRESTResponse';
 function coppyUrl(text: string) {
   copy(text);
   message.success('copy success');
@@ -21,7 +21,7 @@ function strToJson(str: string) {
     return '';
   }
 }
-const JSONLensRenderer: FC<{ response: HoppRESTResponse }> = ({ response }) => {
+const JSONLensRenderer: FC<{ response: ArexRESTResponse }> = ({ response }) => {
   // @ts-ignore
   const jsonObj = response.body;
   const { store, dispatch } = useContext(Context);

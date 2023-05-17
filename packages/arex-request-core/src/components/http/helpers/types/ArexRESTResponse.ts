@@ -1,7 +1,7 @@
 // 修改点
 // 1.删除了 req HoppRESTRequest
 // 2.body 为any
-export type HoppRESTResponse =
+export type ArexRESTResponse =
   | { type: 'loading' }
   | {
       type: 'fail';

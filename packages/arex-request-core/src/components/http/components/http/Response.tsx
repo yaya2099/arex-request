@@ -4,7 +4,7 @@ import { useContext, useMemo } from 'react';
 import React from 'react';
 
 import { Context } from '../../../../providers/ConfigProvider';
-import { HoppRESTResponse } from '../../helpers/types/HoppRESTResponse';
+import { ArexRESTResponse } from '../../helpers/types/ArexRESTResponse';
 import { PostmanTestResult } from '../../helpers/types/PostmanTestResult';
 // import { HoppTestResult } from '../../helpers/types/HoppTestResult';
 import LensesResponseBodyRenderer from '../lenses/ResponseBodyRenderer';
@@ -34,7 +34,7 @@ const HttpResponse = () => {
       <HttpResponseMeta response={store.response} />
       {!loading && hasResponse ? (
         <LensesResponseBodyRenderer
-          response={store.response as HoppRESTResponse}
+          response={store.response as ArexRESTResponse}
           testResult={store.testResult as PostmanTestResult}
           consoles={store.consoles}
         />

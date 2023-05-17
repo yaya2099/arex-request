@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { useMonaco } from '../../../../../composables/monaco';
 import { Context } from '../../../../../providers/ConfigProvider';
 // import { useMonaco } from '../../../../../../../composables/monaco';
-import { HoppRESTResponse } from '../../../helpers/types/HoppRESTResponse';
-const RawLensRenderer: FC<{ response: HoppRESTResponse }> = ({ response }) => {
+import { ArexRESTResponse } from '../../../helpers/types/ArexRESTResponse';
+const RawLensRenderer: FC<{ response: ArexRESTResponse }> = ({ response }) => {
   const rawResponse = useRef(null);
   const { t } = useTranslation();
   const { store } = useContext(Context);
