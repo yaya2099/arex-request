@@ -94,7 +94,7 @@ runner.run(collection, {}, function (err, run) {
 同样postman沙盒也存在跨域问题，由于postman沙盒的集成度非常高，为了保证以后可以轻便的与PostmanRuntime保持同步，我们采用了ajax
 拦截技术，在浏览器端进行ajax拦截，所有postman沙盒发出的请求都会携带"postman-token"的请求头，我们拦截到了ajax请求会把请求参数
 拼装好通过window.postmassage发送给浏览器插件，浏览器插件再次构建fetch请求把数据返回，让postman沙盒输出最终结果，最终结果包含response、
-testResult和console.log。
+testResult和console.log。(值得注意的是responseType必须指定是arraybuffer)
 
 ```js
 xspy.onRequest(async (request: any, sendResponse: any) => {
@@ -107,15 +107,16 @@ xspy.onRequest(async (request: any, sendResponse: any) => {
       data: request.body,
     });
     const dummyResponse = {
-      ajaxType: 'fetch',
       status: agentData.status,
-      headers: agentData.headers,
-      statusText: 'OK',
-      ok: true,
-      redirected: false,
-      type: 'basic',
-      body: JSON.stringify(agentData.data),
-      url: 'https://...',
+      headers: agentData.headers.reduce((p: any, c: { key: any; value: any }) => {
+        return {
+          ...p,
+          [c.key]: c.value,
+        };
+      }, {}),
+      ajaxType: 'xhr',
+      responseType: 'arraybuffer',
+      response: new Buffer(JSON.stringify(agentData.data)),
     };
     sendResponse(dummyResponse);
   } else {

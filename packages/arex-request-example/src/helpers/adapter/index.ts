@@ -1,3 +1,4 @@
+import { Buffer } from 'buffer';
 import xspy from 'xspy';
 
 // chrome插件代理
@@ -40,8 +41,13 @@ xspy.onRequest(async (request: any, sendResponse: any) => {
       headers: request.headers,
       data: ['GET'].includes(request.method) ? undefined : request.body,
     });
+    // response = {
+    //   ajaxType: "xhr",
+    //   response: {result: 3},
+    //   responseType: "json",
+    //   responseText: "{'result':3}",
+    // };
     const dummyResponse = {
-      ajaxType: 'fetch',
       status: agentData.status,
       headers: agentData.headers.reduce((p: any, c: { key: any; value: any }) => {
         return {
@@ -49,12 +55,9 @@ xspy.onRequest(async (request: any, sendResponse: any) => {
           [c.key]: c.value,
         };
       }, {}),
-      statusText: 'OK',
-      ok: true,
-      redirected: false,
-      type: 'basic',
-      body: JSON.stringify(agentData.data),
-      url: 'https://...',
+      ajaxType: 'xhr',
+      responseType: 'arraybuffer',
+      response: new Buffer(JSON.stringify(agentData.data)),
     };
     sendResponse(dummyResponse);
   } else {

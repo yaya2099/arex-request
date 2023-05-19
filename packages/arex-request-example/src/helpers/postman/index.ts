@@ -91,8 +91,32 @@ export async function sendRequest(hopReq: any, environment: any) {
           responseData: function (cursor: any, data: any) {
             // console.log('');
           },
+          test: function (err:any, cursor:any, results:any, item:any) {
+            // results: Array of objects. Each object looks like this:
+            //  {
+            //      error: Error,
+            //      event: sdk.Event,
+            //      script: sdk.Script,
+            //      result: {
+            //          target: 'test'
+            //
+            //          -- Updated environment
+            //          environment: <VariableScope>
+            //
+            //          -- Updated globals
+            //          globals: <VariableScope>
+            //
+            //          response: <sdk.Response>
+            //          request: <sdk.Request>
+            //          data: <Object of data variables>
+            //          cookies: <Array of "sdk.Cookie" objects>
+            //          tests: <Object>
+            //          return: <Object, contains set next request params, etc>
+            //      }
+            //  }
+          },
           item: function (err: any, cursor: any, item: any, visualizer: any) {
-            console.log('pm logs:', consolesBox);
+            console.log('pm logs:', consolesBox,visualizer);
             resolve({
               response: res,
               testResult: assertionsBox,
@@ -109,6 +133,7 @@ export async function sendRequest(hopReq: any, environment: any) {
             cookies: any,
             history: any,
           ) {
+            console.log(response)
             res = {
               type: 'success',
               headers: response.headers.members,
