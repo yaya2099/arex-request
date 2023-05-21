@@ -91,7 +91,7 @@ export async function sendRequest(hopReq: any, environment: any) {
           responseData: function (cursor: any, data: any) {
             // console.log('');
           },
-          test: function (err:any, cursor:any, results:any, item:any) {
+          test: function (err: any, cursor: any, results: any, item: any) {
             // results: Array of objects. Each object looks like this:
             //  {
             //      error: Error,
@@ -116,11 +116,12 @@ export async function sendRequest(hopReq: any, environment: any) {
             //  }
           },
           item: function (err: any, cursor: any, item: any, visualizer: any) {
-            console.log('pm logs:', consolesBox,visualizer);
+            console.log('pm logs:', consolesBox, visualizer);
             resolve({
               response: res,
               testResult: assertionsBox,
               consoles: consolesBox,
+              visualizer: visualizer,
             });
           },
           //调用一次，并对集合中的每个请求进行响应
@@ -133,7 +134,7 @@ export async function sendRequest(hopReq: any, environment: any) {
             cookies: any,
             history: any,
           ) {
-            console.log(response)
+            console.log(response);
             res = {
               type: 'success',
               headers: response.headers.members,

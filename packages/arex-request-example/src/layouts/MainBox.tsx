@@ -24,6 +24,7 @@ const MainBox = () => {
         response: res.response,
         testResult: res.testResult,
         consoles: res.consoles,
+        visualizer: res.visualizer,
       };
     });
   }

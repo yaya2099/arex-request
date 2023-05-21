@@ -61,6 +61,7 @@ const HttpRequest: FC<HttpRequestProps> = ({ onSave, onSend, onChangeTitle, brea
           state.response = responseAndTestResult.response;
           state.testResult = responseAndTestResult.testResult;
           state.consoles = responseAndTestResult.consoles;
+          state.visualizer = responseAndTestResult.visualizer;
         }
       });
     });

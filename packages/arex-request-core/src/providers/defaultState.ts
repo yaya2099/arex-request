@@ -27,4 +27,9 @@ export const defaultState: State = {
   // locale: 'en',
   locale: 'en',
   testResult: null,
+  visualizer: {
+    error: null,
+    data: null,
+    processedTemplate: '',
+  },
 };

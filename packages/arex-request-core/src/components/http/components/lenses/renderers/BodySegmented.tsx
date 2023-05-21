@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { Segmented } from 'antd';
 
-// import VisualizeLensRender from './VisualizeLensRender';
+import VisualizeLensRender from './VisualizeLensRender';
 
 const BodySegmented = ({ response }: any) => {
   return (
@@ -13,7 +13,7 @@ const BodySegmented = ({ response }: any) => {
       `}
     >
       <Segmented options={['Pretty', 'Raw', 'Preview', 'Visualize']} />
-      {/*<VisualizeLensRender></VisualizeLensRender>*/}
+      {/*<VisualizeLensRender response={response}/>*/}
     </div>
   );
 };

@@ -7,6 +7,7 @@ import { ArexRESTResponse } from '../../helpers/types/ArexRESTResponse';
 import Console from '../http/Console';
 import TestResult from '../http/TestResult';
 import LensesHeadersRenderer from './HeadersRenderer';
+import BodySegmented from './renderers/BodySegmented';
 import JSONLensRenderer from './renderers/JSONLensRenderer';
 import RawLensRenderer from './renderers/RawLensRenderer';
 
@@ -28,11 +29,11 @@ const LensesResponseBodyRenderer: FC<{
       key: '0',
       children: <JSONLensRenderer response={response} />,
     },
-    // {
-    //   label: 'Body',
-    //   key: 'Body',
-    //   children: <BodySegmented response={response} />,
-    // },
+    {
+      label: 'Body',
+      key: 'Body',
+      children: <BodySegmented response={response} />,
+    },
     {
       label: 'Raw',
       key: '1',

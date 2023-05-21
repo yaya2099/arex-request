@@ -4,12 +4,17 @@ import { useTranslation } from 'react-i18next';
 export interface State {
   request: ArexRESTRequest;
   edited: boolean;
-  response: ArexRESTResponse | null;
-  testResult: PostmanTestResult | null;
-  consoles: any[];
   environment: Environment;
   theme: 'dark' | 'light';
   locale: string;
+  response: ArexRESTResponse | null;
+  testResult: PostmanTestResult | null;
+  consoles: any[];
+  visualizer: {
+    error: null | string;
+    data: any;
+    processedTemplate: string;
+  };
 }
 import { Environment } from '../components/http/data/environment';
 import { ArexRESTRequest } from '../components/http/data/rest';
