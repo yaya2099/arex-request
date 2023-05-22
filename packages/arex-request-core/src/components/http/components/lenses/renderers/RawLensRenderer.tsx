@@ -7,10 +7,11 @@ import { Context } from '../../../../../providers/ConfigProvider';
 // import { useMonaco } from '../../../../../../../composables/monaco';
 import { ArexRESTResponse } from '../../../helpers/types/ArexRESTResponse';
 const RawLensRenderer: FC<{ response: ArexRESTResponse }> = ({ response }) => {
+  // console.log(response.body.toString(), 'response');
   const rawResponse = useRef(null);
   const { t } = useTranslation();
   const { store } = useContext(Context);
-  useMonaco(rawResponse, response.type === 'success' ? JSON.stringify(response.body) : '', {
+  useMonaco(rawResponse, response.type === 'success' ? response.body.toString() : '', {
     extendedEditorConfig: {
       lineWrapping: true,
       mode: 'txt',

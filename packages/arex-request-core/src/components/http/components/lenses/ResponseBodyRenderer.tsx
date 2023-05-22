@@ -29,11 +29,11 @@ const LensesResponseBodyRenderer: FC<{
       key: '0',
       children: <JSONLensRenderer response={response} />,
     },
-    {
-      label: 'Body',
-      key: 'Body',
-      children: <BodySegmented response={response} />,
-    },
+    // {
+    //   label: 'Body',
+    //   key: 'Body',
+    //   children: <BodySegmented response={response} />,
+    // },
     {
       label: 'Raw',
       key: '1',
