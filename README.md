@@ -102,4 +102,4 @@ function MainBox({ src }) {
 
 ## 问题
 
-[AREX 如何实现纯web端完成各类API调试？](./how-to-complete-debugging.md)
+[AREX 如何实现纯web端完成各类API调试？](documentation/how-to-complete-debugging.md)
