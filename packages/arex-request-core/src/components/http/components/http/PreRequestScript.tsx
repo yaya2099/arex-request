@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useMonaco } from '../../../../composables/monaco';
 import { Context } from '../../../../providers/ConfigProvider';
+import {preTestCodeSnippet, testCodeSnippet} from "./snippets";
 const { Text } = Typography;
 // import { useMonaco } from '../../../../../../composables/monaco';
 
@@ -41,15 +42,7 @@ const HttpPreRequestScript = () => {
   const ThemeColorPrimaryButton = styled(Button)`
     color: ${(props) => theme.token.colorPrimary} !important;
   `;
-  const codeSnippet = [
-    {
-      name: 'Send a request',
-      text: `pm.sendRequest("https://postman-echo.com/get", function (err, response) {
-    console.log(response.json());
-});
-`,
-    },
-  ];
+  const codeSnippet = preTestCodeSnippet
 
   const addTest = (text: string) => {
     dispatch((state) => {

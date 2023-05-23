@@ -39,14 +39,8 @@ xspy.onRequest(async (request: any, sendResponse: any) => {
       method: request.method,
       url: request.url,
       headers: request.headers,
-      data: ['GET'].includes(request.method) ? undefined : request.body,
+      body: ['GET'].includes(request.method) ? undefined : request.body,
     });
-    // response = {
-    //   ajaxType: "xhr",
-    //   response: {result: 3},
-    //   responseType: "json",
-    //   responseText: "{'result':3}",
-    // };
     const dummyResponse = {
       status: agentData.status,
       headers: agentData.headers.reduce((p: any, c: { key: any; value: any }) => {
@@ -57,7 +51,7 @@ xspy.onRequest(async (request: any, sendResponse: any) => {
       }, {}),
       ajaxType: 'xhr',
       responseType: 'arraybuffer',
-      response: new Buffer(JSON.stringify(agentData.data)),
+      response: new Buffer(agentData.data),
     };
     sendResponse(dummyResponse);
   } else {

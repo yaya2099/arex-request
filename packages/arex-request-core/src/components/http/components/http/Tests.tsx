@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useMonaco } from '../../../../composables/monaco';
 import { Context } from '../../../../providers/ConfigProvider';
+import {testCodeSnippet} from "./snippets";
 const { Text } = Typography;
 const { useToken } = theme;
 export const ResponseTestHeader = styled.div`
@@ -41,22 +42,7 @@ const HttpTests = () => {
   const ThemeColorPrimaryButton = styled(Button)`
     color: ${(props) => theme.token.colorPrimary} !important;
   `;
-  const codeSnippet = [
-    {
-      name: 'Send a request',
-      text: `pm.sendRequest("https://postman-echo.com/get", function (err, response) {
-    console.log(response.json());
-});
-`,
-    },
-    {
-      name: 'Status code is 200',
-      text: `pm.test("Status code is 200", function () {
-    pm.response.to.have.status(200);
-});
-`,
-    },
-  ];
+  const codeSnippet = testCodeSnippet;
 
   const addTest = (text: string) => {
     dispatch((state) => {
