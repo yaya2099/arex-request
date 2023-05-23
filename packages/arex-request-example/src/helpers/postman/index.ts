@@ -11,7 +11,10 @@ const converToUrl = (requestParams: any) => {
   return '?' + params.join('&');
 };
 // 发送一个request
-export async function sendRequest(hopReq: any, environment: any) {
+export async function sendRequest(
+  hopReq: any,
+  environment: any,
+): Promise<{ response: any; testResult: any; consoles: any; visualizer: any }> {
   // @ts-ignore
   const runner = new window.PostmanRuntime.Runner();
   // arex数据接口转postman数据结构
@@ -76,7 +79,7 @@ export async function sendRequest(hopReq: any, environment: any) {
             });
           },
           createReadStream(base64: string) {
-            return base64.split(';base64,')[1];
+            return base64;
           },
         },
       },
