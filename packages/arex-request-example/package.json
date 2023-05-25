@@ -20,7 +20,6 @@
     "arex-request-runtime": "^1.0.2",
     "axios": "^1.4.0",
     "buffer": "^6.0.3",
-    "jquery": "^3.6.4",
     "monaco-editor": "^0.38.0",
     "postman-collection": "^4.1.7",
     "react": "^18.2.0",
@@ -30,11 +29,9 @@
   "devDependencies": {
     "@babel/core": "^7.21.4",
     "@emotion/babel-plugin": "^11.10.6",
-    "@rollup/plugin-inject": "^5.0.3",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react-swc": "^3.3.1",
-    "rollup-plugin-copy": "^3.4.0",
     "typescript": "^4.9.3",
     "vite": "^4.2.0",
     "vite-plugin-static-copy": "^0.13.1"
