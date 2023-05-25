@@ -22,22 +22,30 @@
 中background可以发送跨域请求，我们将浏览器端拦截到的请求通过window.postmassage与chrome插件的background进行
 通信。(其中通信还需要chrome插件的content-script作为数据桥梁)
 
+具体如下
+
 在页面脚本中：
 
 1.生成一个随机的字符串，并将其转换为字符串形式，存储在tid变量中。
+
 2.使用window.postMessage()方法发送一条消息到其他扩展程序，消息包括一个类型为__AREX_EXTENSION_REQUEST__的标识、tid、以及params参数。
+
 3.添加一个message事件监听器receiveMessage，用于接收其他扩展程序发送的消息。
+
 4.在receiveMessage函数中，检查接收到的消息是否为类型为__AREX_EXTENSION_RES__，并且tid与之前发送的消息的tid相匹配。如果匹配成功，则移除事件监听器。
 
 在内容脚本中：
 
 1.添加一个message事件监听器，用于接收来自页面脚本或其他扩展程序发送的消息。
+
 2.在事件监听器中，检查接收到的消息是否为类型为__AREX_EXTENSION_REQUEST__，如果是，则使用chrome.runtime.sendMessage()方法将消息发送给后台脚本。
+
 3.在接收到来自后台脚本的响应后，使用window.postMessage()方法将响应消息发送回页面脚本或其他扩展程序。
 
 在后台脚本中：
 
 1.使用chrome.runtime.onMessage.addListener()方法添加一个监听器，用于接收来自内容脚本或其他扩展程序发送的消息。
+
 2.在监听器中可以处理接收到的消息，并根据需要作出响应。
 
 ```js
@@ -122,7 +130,7 @@ runner.run(collection, {}, function (err, run) {
 拼装好通过window.postmassage发送给浏览器插件，浏览器插件再次构建fetch请求把数据返回，让postman沙盒输出最终结果，最终结果包含response、
 testResult和console.log。(值得注意的是responseType必须指定是arraybuffer)
 
-具体步骤
+具体如下
 
 1.使用xspy.onRequest()方法注册一个请求处理程序。这个处理程序接受两个参数：request和sendResponse。request参数包含请求的相关信息，例如方法、URL、头部、请求体等。sendResponse是一个回调函数，用于发送响应给请求方。
 
@@ -227,14 +235,14 @@ export default base64ToFile;
 
 ```
 
-这是一个流程图，描述了将 FormData 中的二进制文件转换为 Base64 字符串，并通过 Chrome 插件代理将其转换回文件并进行进一步处理的过程。下面是对流程图的分析：
-
 ```mermaid
 flowchart TD
     A[form-data binary] -->|FileReader| B(readAsDataURL base64 string)
     B --> C{Chrome插件代理}
     C -->|base64 string| D[Uint8Array] --> E(File) --> F(fetch)
 ```
+
+这个流程图描述了将 FormData 中的二进制文件转换为 Base64 字符串，并通过 Chrome 插件代理将其转换回文件并进行进一步处理的过程。下面是对流程图的分析：
 
 1.form-data binary（A）：表示一个包含二进制文件的 FormData 表单数据。
 
