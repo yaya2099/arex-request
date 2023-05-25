@@ -1,7 +1,7 @@
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { Breadcrumb, Button, Dropdown, Input, MenuProps, message, Select } from 'antd';
+import { Breadcrumb, Button, Checkbox, Dropdown, Input, MenuProps, message, Select } from 'antd';
 import { FC, useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -97,6 +97,7 @@ const HttpRequest: FC<HttpRequestProps> = ({ onSave, onSend, onChangeTitle, brea
       </div>
       <HeaderWrapper>
         <Select
+          disabled={Boolean(store.request.inherit)}
           css={css`
             width: 120px;
             transform: translateX(1px);
@@ -110,6 +111,7 @@ const HttpRequest: FC<HttpRequestProps> = ({ onSave, onSend, onChangeTitle, brea
           }}
         />
         <SmartEnvInput
+          disabled={Boolean(store.request.inherit)}
           value={store.request.endpoint}
           onChange={(v) => {
             dispatch((state) => {
@@ -117,12 +119,18 @@ const HttpRequest: FC<HttpRequestProps> = ({ onSave, onSend, onChangeTitle, brea
             });
           }}
         />
-
-        <div
+        <Checkbox
           css={css`
-            margin: 0 0px 0 10px;
+            margin: 5px;
           `}
-        >
+          checked={store.request.inherit}
+          onChange={(val) => {
+            dispatch((state) => {
+              state.request.inherit = val.target.checked;
+            });
+          }}
+        />
+        <div css={css``}>
           <Dropdown.Button
             onClick={() => handleRequest({ type: null })}
             type='primary'

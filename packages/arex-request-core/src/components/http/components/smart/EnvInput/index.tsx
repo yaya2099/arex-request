@@ -15,10 +15,11 @@ import TooltipContent from './TooltipContent';
 import { getElementViewPosition } from './util';
 const { useToken } = theme;
 interface SmartEnvInputProps {
+  disabled: boolean;
   value: string;
   onChange: (e: any) => void;
 }
-const SmartEnvInput: FC<SmartEnvInputProps> = ({ value, onChange }) => {
+const SmartEnvInput: FC<SmartEnvInputProps> = ({ value, onChange, disabled }) => {
   const theme = useToken();
   // TODO editor type
   const { store } = useContext(Context);
@@ -47,6 +48,7 @@ const SmartEnvInput: FC<SmartEnvInputProps> = ({ value, onChange }) => {
       lineWrapping: true,
       theme: store.theme,
       isEndpointInput: true,
+      readOnly: disabled,
     },
     onChange: (val: string) => {
       onChange(val);

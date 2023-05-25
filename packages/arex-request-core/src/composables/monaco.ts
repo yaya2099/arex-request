@@ -93,6 +93,7 @@ export function useMonaco(el: any, value: string, options: Options) {
   useEffect(() => {
     editor?.updateOptions({
       theme: options.extendedEditorConfig.theme === 'dark' ? 'vs-dark' : 'vs',
+      readOnly: options.extendedEditorConfig.readOnly,
     });
   }, [options]);
 
