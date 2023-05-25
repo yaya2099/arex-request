@@ -18,7 +18,7 @@ export const defaultState: State = {
     endpoint: '',
     method: '',
     params: [],
-    inherit: false,
+    inherited: false,
   },
   edited: false,
   response: null,

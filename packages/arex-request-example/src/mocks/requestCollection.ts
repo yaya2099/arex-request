@@ -12,7 +12,7 @@ export const requestCollection = [
     endpoint: '{{url}}/post',
     method: 'POST',
     params: [],
-    inherit: true,
+    inherited: true,
   },
   {
     id: '1',
@@ -27,6 +27,6 @@ export const requestCollection = [
     endpoint: '{{url}}/get',
     method: 'GET',
     params: [],
-    inherit: true,
+    inherited: true,
   },
 ];

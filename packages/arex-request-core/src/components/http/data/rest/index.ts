@@ -56,7 +56,7 @@ export interface ArexRESTRequest {
   body: HoppRESTReqBody;
 
   // 为arex加的
-  inherit: boolean;
+  inherited: boolean;
 }
 
 export function makeRESTRequest(x: Omit<ArexRESTRequest, 'v'>): ArexRESTRequest {
@@ -122,7 +122,7 @@ export function translateToNewRequest(x: any): ArexRESTRequest {
       testScript,
       body,
       auth,
-      inherit:true,
+      inherited:true,
       v: RESTReqSchemaVersion,
     };
 

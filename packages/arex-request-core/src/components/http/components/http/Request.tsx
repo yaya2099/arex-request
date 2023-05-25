@@ -97,7 +97,7 @@ const HttpRequest: FC<HttpRequestProps> = ({ onSave, onSend, onChangeTitle, brea
       </div>
       <HeaderWrapper>
         <Select
-          disabled={Boolean(store.request.inherit)}
+          disabled={Boolean(store.request.inherited)}
           css={css`
             width: 120px;
             transform: translateX(1px);
@@ -111,7 +111,7 @@ const HttpRequest: FC<HttpRequestProps> = ({ onSave, onSend, onChangeTitle, brea
           }}
         />
         <SmartEnvInput
-          disabled={Boolean(store.request.inherit)}
+          disabled={Boolean(store.request.inherited)}
           value={store.request.endpoint}
           onChange={(v) => {
             dispatch((state) => {
@@ -123,10 +123,10 @@ const HttpRequest: FC<HttpRequestProps> = ({ onSave, onSend, onChangeTitle, brea
           css={css`
             margin: 5px;
           `}
-          checked={store.request.inherit}
+          checked={store.request.inherited}
           onChange={(val) => {
             dispatch((state) => {
-              state.request.inherit = val.target.checked;
+              state.request.inherited = val.target.checked;
             });
           }}
         />
