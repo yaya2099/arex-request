@@ -33,6 +33,35 @@ const MainBox = () => {
     return requestCollection.find((r) => r.id === selectedKey);
   }, [selectedKey]);
   // collection
+  const httpConfig = useMemo(
+    () => ({
+      requestTabs: {
+        extra: [
+          {
+            label: 'Mock',
+            key: 'mock',
+            hidden: true,
+            children: <div>mock</div>
+          },
+          // {
+          //   label: t('http.compare_config'),
+          //   key: 'compareConfig',
+          //   hidden: nodeType === 2,
+          //   children: (
+          //     <ExtraTabs.RequestTabs.CompareConfig
+          //       interfaceId={id}
+          //       operationId={data?.operationId}
+          //     />
+          //   ),
+          // },
+        ],
+      },
+      responseTabs: {
+        extra: [],
+      },
+    }),
+    [testReqaData],
+  );
   return (
     <div
       css={css`
@@ -115,7 +144,7 @@ const MainBox = () => {
               name: 'dev',
               variables: [{ key: 'url', value: 'http://124.223.27.177:18080' }],
             }}
-            config={{}}
+            config={httpConfig}
             breadcrumbItems={[{ title: 'Test' }, { title: 'hoppscotch' }, { title: 'echo' }]}
             onChangeTitle={({ value }) => {
               console.log(value);

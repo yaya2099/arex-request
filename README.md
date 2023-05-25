@@ -71,6 +71,18 @@ function MainBox({ src }) {
 }
 ```
 
+### Props
+
+#### `Http`
+
+| 参数      | Type   | Default | 说明                                                                    |
+|:--------|:-------|:--------|:----------------------------------------------------------------------|
+| value   | object |         | 整个组件的核心数据                                                             |
+| height  | string | 100%    | 组件的高度                                                                 |
+| disabled | boolean | false   | 是否禁用，只会禁用endpoint和method                                              |
+| onSave  | (request: Request) => void |         | 点击保存按钮的时候会发生回调，会传递当前request所有数据                                       |
+| onSend  | (request: Request) => Promise<{response,testResult}> |         | 点击发送按钮的时候会发生回调，会传递当前request所有数据。并且会返回请求的结果和测试结果，当然这些结果需要通过自己完成请求发送获得。 |
+
 ## Props
 
 **`onSave: (request: Request) => void`**
@@ -79,8 +91,7 @@ function MainBox({ src }) {
 
 **`onSend: (request: Request) => Promise<{response,testResult}>`**
 
-点击发送按钮的时候会发生回调，会传递当前request所有数据。并且会返回请求的结果和测试结果，当然这些结果需要
-通过自己完成请求发送获得。
+点击发送按钮的时候会发生回调，会传递当前request所有数据。并且会返回请求的结果和测试结果，当然这些结果需要通过自己完成请求发送获得。
 
 
 **`value: Request`**

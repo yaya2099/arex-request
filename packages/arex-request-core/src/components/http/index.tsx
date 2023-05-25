@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import { Allotment } from 'allotment';
+import { TabPaneProps } from 'antd';
 import { FC, useContext, useEffect } from 'react';
 
 import { Context } from '../../providers/ConfigProvider';
@@ -10,7 +11,21 @@ import { Environment } from './data/environment';
 import { ArexRESTRequest } from './data/rest';
 import { ArexRESTResponse } from './helpers/types/ArexRESTResponse';
 import { PostmanTestResult } from './helpers/types/PostmanTestResult';
+export interface Tab extends Omit<TabPaneProps, 'tab'> {
+  key: string;
+  label: React.ReactNode;
+  hidden?: boolean;
+}
 
+export type TabConfig = {
+  extra?: Tab[];
+  filter?: (key: string) => boolean;
+};
+
+export type HttpConfig = {
+  requestTabs?: TabConfig;
+  responseTabs?: TabConfig;
+};
 export interface HttpProps {
   height: string;
   environment: Environment;
@@ -19,7 +34,7 @@ export interface HttpProps {
     r: ArexRESTRequest,
   ) => Promise<{ response: ArexRESTResponse; testResult: PostmanTestResult }>;
   onSave: (r: ArexRESTRequest) => void;
-  config: any;
+  config: HttpConfig;
   breadcrumbItems: { title: string }[];
   onChangeTitle: ({ value }: { value: string }) => void;
 }
@@ -32,6 +47,7 @@ const Http: FC<HttpProps> = ({
   breadcrumbItems,
   onChangeTitle,
   height,
+  config,
 }) => {
   const { store, dispatch } = useContext(Context);
   useEffect(() => {
@@ -76,7 +92,7 @@ const Http: FC<HttpProps> = ({
               onSave={onSave}
               onSend={onSend}
             ></HttpRequest>
-            <HttpRequestOptions />
+            <HttpRequestOptions config={config?.requestTabs} />
           </div>
         ) : null}
       </Allotment.Pane>

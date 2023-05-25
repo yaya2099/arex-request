@@ -1,24 +1,25 @@
 import { css } from '@emotion/react';
 import { Badge, Tabs, Tag, theme } from 'antd';
-import { useContext, useMemo, useState } from 'react';
+import { FC, useContext, useMemo, useState } from 'react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Context } from '../../../../providers/ConfigProvider';
+import { TabConfig } from '../../index';
 import HttpBody from './Body';
 import HttpHeaders from './Headers';
 import HttpParameters from './Parameters';
 import HttpPreRequestScript from './PreRequestScript';
 import HttpTests from './Tests';
 const { useToken } = theme;
-const HttpRequestOptions = () => {
+const HttpRequestOptions: FC<{ config?: TabConfig }> = ({ config }) => {
   const token = useToken();
   const { t } = useTranslation();
   const [activeKey, setActiveKey] = useState('3');
   const { store } = useContext(Context);
 
   const items = useMemo(() => {
-    const _items = [
+    const _items: any = [
       {
         label: (
           <div>
@@ -88,6 +89,9 @@ const HttpRequestOptions = () => {
         forceRender: true,
       },
     ];
+
+    // concat extra request tabs
+    config?.extra && _items.push(...config.extra.filter((tab) => !tab.hidden));
     return _items;
   }, [store.request]);
   return (
