@@ -102,7 +102,7 @@ const HttpRequest: FC<HttpRequestProps> = ({ onSave, onSend, onChangeTitle, brea
             width: 120px;
             transform: translateX(1px);
           `}
-          value={store.request.method}
+          value={store.request.inherited ? store.request.inheritedMethod : store.request.method}
           options={methods.map((i) => ({ value: i, lable: i }))}
           onChange={(value) => {
             dispatch((state) => {
@@ -112,7 +112,7 @@ const HttpRequest: FC<HttpRequestProps> = ({ onSave, onSend, onChangeTitle, brea
         />
         <SmartEnvInput
           disabled={Boolean(store.request.inherited)}
-          value={store.request.endpoint}
+          value={store.request.inherited ? store.request.inheritedEndpoint : store.request.endpoint}
           onChange={(v) => {
             dispatch((state) => {
               state.request.endpoint = v;

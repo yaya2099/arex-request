@@ -13,6 +13,8 @@ export const requestCollection = [
     method: 'POST',
     params: [],
     inherited: true,
+    inheritedEndpoint: '{{url}}/put',
+    inheritedMethod: 'PUT',
   },
   {
     id: '1',
@@ -28,5 +30,7 @@ export const requestCollection = [
     method: 'GET',
     params: [],
     inherited: true,
+    inheritedEndpoint: '{{url}}/put',
+    inheritedMethod: 'PUT',
   },
 ];

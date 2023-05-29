@@ -57,6 +57,8 @@ export interface ArexRESTRequest {
 
   // 为arex加的
   inherited: boolean;
+  inheritedEndpoint: string;
+  inheritedMethod: string;
 }
 
 export function makeRESTRequest(x: Omit<ArexRESTRequest, 'v'>): ArexRESTRequest {
@@ -122,7 +124,9 @@ export function translateToNewRequest(x: any): ArexRESTRequest {
       testScript,
       body,
       auth,
-      inherited:true,
+      inherited: true,
+      inheritedEndpoint: '',
+      inheritedMethod: '',
       v: RESTReqSchemaVersion,
     };
 

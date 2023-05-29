@@ -97,5 +97,11 @@ export function useMonaco(el: any, value: string, options: Options) {
     });
   }, [options]);
 
+  useEffect(() => {
+    if (value !== editor?.getValue() && editor?.getValue() !== undefined) {
+      editor?.setValue(value);
+    }
+  }, [value]);
+
   return { editor };
 }
