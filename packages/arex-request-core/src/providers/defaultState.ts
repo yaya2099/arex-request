@@ -21,6 +21,7 @@ export const defaultState: State = {
     inherited: false,
     inheritedEndpoint: '',
     inheritedMethod: '',
+    description: 'miaoshu',
   },
   edited: false,
   response: null,

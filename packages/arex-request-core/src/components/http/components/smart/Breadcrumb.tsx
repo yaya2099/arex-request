@@ -1,67 +1,160 @@
 import { EditOutlined } from '@ant-design/icons';
 import { css } from '@emotion/react';
-import { Breadcrumb, Input } from 'antd';
+import { Breadcrumb, Input, Select, Space, Typography } from 'antd';
 import { FC, useEffect, useState } from 'react';
+const { Text, Link } = Typography;
+// 纸笔记录
 interface SmartBreadcrumbProps {
-  items: { title: string }[];
-  onChangeTitle: ({ value }: { value: string }) => void;
+  titleItems: { title: string }[];
+  description: string;
+  tags: string[];
+  tagOptions: { color: string; label: string; value: string }[];
+  onChange: ({
+    title,
+    description,
+    tags,
+  }: {
+    title?: string;
+    description?: string;
+    tags?: string[];
+  }) => void;
 }
-const SmartBreadcrumb: FC<SmartBreadcrumbProps> = ({ items, onChangeTitle }) => {
+const SmartBreadcrumb: FC<SmartBreadcrumbProps> = ({
+  titleItems,
+  tags,
+  tagOptions,
+  description,
+  onChange,
+}) => {
   const [mode, setMode] = useState('normal');
   const [value, setValue] = useState('');
+  const [descriptionValue, setDescriptionValue] = useState('');
+
   useEffect(() => {
-    setValue(items.at(-1)?.title || '');
+    setValue(titleItems.at(-1)?.title || '');
+    setDescriptionValue(description);
   }, []);
   return (
     <div
       css={css`
         display: flex;
         align-items: center;
-        //border: 1px solid salmon;
         width: 100%;
-        &:hover {
-          //border: 1px solid black;
-          .test123 {
-            display: inline-block !important;
-          }
-        }
       `}
     >
       {mode === 'normal' ? (
-        <>
-          <Breadcrumb items={items} />
+        <Space>
           <div
-            className={'test123'}
             css={css`
-              margin-left: 10px;
-              display: none;
-              cursor: pointer;
+              display: flex;
+              align-items: center;
+              &:hover {
+                .editor-icon {
+                  visibility: unset !important;
+                }
+              }
             `}
           >
-            <EditOutlined
-              onClick={() => {
-                setMode('edit');
-              }}
-            />
+            <Breadcrumb items={titleItems} />
+            <div
+              className={'editor-icon'}
+              css={css`
+                margin-left: 10px;
+                visibility: hidden;
+                cursor: pointer;
+              `}
+            >
+              <EditOutlined
+                onClick={() => {
+                  setMode('title');
+                }}
+              />
+            </div>
           </div>
-        </>
+
+          <div
+            css={css`
+              display: flex;
+              align-items: center;
+              &:hover {
+                .editor-icon {
+                  visibility: unset !important;
+                }
+              }
+            `}
+          >
+            <Text type='secondary' css={css`font-size: 12px`}>{description}</Text>
+
+            <div
+              className={'editor-icon'}
+              css={css`
+                margin-left: 10px;
+                visibility: hidden;
+                cursor: pointer;
+              `}
+            >
+              <EditOutlined
+                onClick={() => {
+                  setMode('description');
+                }}
+              />
+            </div>
+          </div>
+
+          <Select
+            mode={'multiple'}
+            defaultValue={tags}
+            options={tagOptions}
+            bordered={false}
+            onChange={(val) => {
+              onChange({
+                tags: val,
+              });
+            }}
+          />
+        </Space>
       ) : (
-        <Input
-          value={value}
-          onChange={(val) => {
-            setValue(val.target.value);
-          }}
-          onBlur={() => {
-            setMode('normal');
-            onChangeTitle({ value });
-          }}
-          onKeyUp={(e) => {
-            if (e.keyCode === 13) {
+        <>
+          <Input
+            css={css`
+              display: ${mode === 'title' ? 'inline-block' : 'none'};
+            `}
+            value={value}
+            onChange={(val) => {
+              setValue(val.target.value);
+            }}
+            onBlur={() => {
               setMode('normal');
-              onChangeTitle({ value });
-            }
-          }}
-        />
+              onChange({ title: value });
+            }}
+            onKeyUp={(e) => {
+              if (e.keyCode === 13) {
+                setMode('normal');
+                onChange({ title: value });
+              }
+            }}
+          />
+
+          <Input
+            css={css`
+              display: ${mode === 'description' ? 'inline-block' : 'none'};
+            `}
+            defaultValue={descriptionValue}
+            onChange={(val) => {
+              setDescriptionValue(val.target.value);
+            }}
+            onBlur={(val) => {
+              setMode('normal');
+              onChange({ description: descriptionValue });
+            }}
+            onKeyUp={(e) => {
+              if (e.keyCode === 13) {
+                setMode('normal');
+                onChange({ description: descriptionValue });
+              }
+            }}
+          />
+        </>
       )}
     </div>
   );

@@ -12,7 +12,7 @@ export const requestCollection = [
     endpoint: '{{url}}/post',
     method: 'POST',
     params: [],
-    inherited: true,
+    inherited: undefined,
     inheritedEndpoint: '{{url}}/put',
     inheritedMethod: 'PUT',
   },

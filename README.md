@@ -63,7 +63,7 @@ function MainBox({ src }) {
       environment={{ name: 'dev', variables: [{ key: 'url', value: 'http://124.223.27.177:18080' }] }}
       config={{}}
       breadcrumbItems={[{ title: 'Test' }, { title: 'hoppscotch' }, { title: 'echo' }]}
-      onChangeTitle={({value}) => {
+      onChange={({value}) => {
         console.log(value);
       }}
     />
@@ -106,7 +106,7 @@ function MainBox({ src }) {
 
 当前request的目录路径
 
-**`onChangeTitle: (value) => void`**
+**`onChange: (value) => void`**
 
 修改request时触发
 

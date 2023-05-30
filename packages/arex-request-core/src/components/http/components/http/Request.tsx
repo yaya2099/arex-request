@@ -6,6 +6,7 @@ import { FC, useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Context } from '../../../../providers/ConfigProvider';
+import { HttpProps } from '../../index';
 import SmartBreadcrumb from '../smart/Breadcrumb';
 import SmartEnvInput from '../smart/EnvInput';
 
@@ -18,12 +19,23 @@ const HeaderWrapper = styled.div`
 
 const methods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'];
 interface HttpRequestProps {
-  onSave: any;
-  onSend: any;
+  onSave: HttpProps['onSave'];
+  onSend: HttpProps['onSend'];
   breadcrumbItems: { title: string }[];
-  onChangeTitle: ({ value }: { value: string }) => void;
+  onChange: HttpProps['onChange'];
+  description: string;
+  tags: string[];
+  tagOptions: { color: string; label: string; value: string }[];
 }
-const HttpRequest: FC<HttpRequestProps> = ({ onSave, onSend, onChangeTitle, breadcrumbItems }) => {
+const HttpRequest: FC<HttpRequestProps> = ({
+  onSave,
+  onSend,
+  onChange,
+  breadcrumbItems,
+  description,
+  tagOptions,
+  tags,
+}) => {
   const { store, dispatch } = useContext(Context);
 
   const { t } = useTranslation();
@@ -80,7 +92,13 @@ const HttpRequest: FC<HttpRequestProps> = ({ onSave, onSend, onChangeTitle, brea
           margin-bottom: 8px;
         `}
       >
-        <SmartBreadcrumb items={breadcrumbItems} onChangeTitle={onChangeTitle} />
+        <SmartBreadcrumb
+          tags={tags}
+          tagOptions={tagOptions}
+          description={description}
+          titleItems={breadcrumbItems}
+          onChange={onChange}
+        />
         <div>
           <Button
             onClick={() => {
@@ -119,7 +137,11 @@ const HttpRequest: FC<HttpRequestProps> = ({ onSave, onSend, onChangeTitle, brea
             });
           }}
         />
-        <div css={css`width: 5px`}></div>
+        <div
+          css={css`
+            width: 5px;
+          `}
+        ></div>
         <Checkbox
           css={css`
             margin-top: 5px;
@@ -134,17 +156,12 @@ const HttpRequest: FC<HttpRequestProps> = ({ onSave, onSend, onChangeTitle, brea
           }}
         />
         <div css={css``}>
-          <Dropdown.Button
+          <Button
             onClick={() => handleRequest({ type: null })}
             type='primary'
-            menu={{
-              onClick: handleMenuClick,
-              items: [],
-            }}
-            icon={<DownOutlined />}
           >
             {t('action.send')}
-          </Dropdown.Button>
+          </Button>
         </div>
       </HeaderWrapper>
     </div>

@@ -41,7 +41,7 @@ const MainBox = () => {
             label: 'Mock',
             key: 'mock',
             hidden: true,
-            children: <div>mock</div>
+            children: <div>mock</div>,
           },
           // {
           //   label: t('http.compare_config'),
@@ -62,6 +62,7 @@ const MainBox = () => {
     }),
     [testReqaData],
   );
+  // @ts-ignore
   return (
     <div
       css={css`
@@ -132,7 +133,6 @@ const MainBox = () => {
             theme={theme}
             // 以上是配置
             onSend={(request) => {
-              console.log(request,'req')
               return onSend(request, {
                 name: 'dev',
                 variables: [{ key: 'url', value: 'http://124.223.27.177:18080' }],
@@ -147,9 +147,13 @@ const MainBox = () => {
             }}
             config={httpConfig}
             breadcrumbItems={[{ title: 'Test' }, { title: 'hoppscotch' }, { title: 'echo' }]}
-            onChangeTitle={({ value }) => {
-              console.log(value);
+            // @ts-ignore
+            onChange={({ value, tags, description }) => {
+              console.log(value, tags, description);
             }}
+            tags={['sd']}
+            tagOptions={[{ color: 'blue', value: 'sd', label: 'd' }]}
+            description={'description'}
           />
         </div>
       </div>

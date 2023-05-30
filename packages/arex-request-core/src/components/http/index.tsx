@@ -36,7 +36,18 @@ export interface HttpProps {
   onSave: (r: ArexRESTRequest) => void;
   config: HttpConfig;
   breadcrumbItems: { title: string }[];
-  onChangeTitle: ({ value }: { value: string }) => void;
+  onChange: ({
+    title,
+    description,
+    tags,
+  }: {
+    title?: string;
+    description?: string;
+    tags?: string[];
+  }) => void;
+  description: string;
+  tags: string[];
+  tagOptions: { color: string; label: string; value: string }[];
 }
 
 const Http: FC<HttpProps> = ({
@@ -45,7 +56,10 @@ const Http: FC<HttpProps> = ({
   environment,
   onSave,
   breadcrumbItems,
-  onChangeTitle,
+  onChange,
+  description,
+  tags,
+  tagOptions,
   height,
   config,
 }) => {
@@ -87,8 +101,11 @@ const Http: FC<HttpProps> = ({
             `}
           >
             <HttpRequest
+              description={description}
+              tags={tags}
+              tagOptions={tagOptions}
               breadcrumbItems={breadcrumbItems}
-              onChangeTitle={onChangeTitle}
+              onChange={onChange}
               onSave={onSave}
               onSend={onSend}
             ></HttpRequest>
