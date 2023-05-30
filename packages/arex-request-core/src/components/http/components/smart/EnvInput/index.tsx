@@ -1,6 +1,6 @@
 import { css, useTheme } from '@emotion/react';
 import { theme } from 'antd';
-import * as monaco from 'monaco-editor';
+// import * as monaco from 'monaco-editor';
 import React, { FC, useContext, useEffect, useRef, useState } from 'react';
 
 import { useMonaco } from '../../../../../composables/monaco';
@@ -103,7 +103,7 @@ const SmartEnvInput: FC<SmartEnvInputProps> = ({ value, onChange, disabled }) =>
     const rs = marks.map((m) => {
       const { found, from, to } = m;
       return {
-        range: new monaco.Range(1, from + 1, 1, to + 1), // rowStart, columnStart, rowEnd, columnEnd
+        range: new window.monaco.Range(1, from + 1, 1, to + 1), // rowStart, columnStart, rowEnd, columnEnd
         options: {
           isWholeLine: false,
           // className: content-class-no-found, // 代码行样式类名

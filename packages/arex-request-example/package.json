@@ -16,7 +16,7 @@
     "ahooks": "^3.7.7",
     "allotment": "^1.18.1",
     "antd": "^5.4.2",
-    "arex-request-core": "workspace:^0.0.1-beta.29",
+    "arex-request-core": "workspace:^0.0.1-beta.30",
     "arex-request-runtime": "^1.0.2",
     "axios": "^1.4.0",
     "buffer": "^6.0.3",
