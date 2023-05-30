@@ -1,4 +1,4 @@
-import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+// import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import { useEffect, useState } from 'react';
 // 完全去掉间隙
 // https://github.com/microsoft/monaco-editor/issues/1960
@@ -16,8 +16,9 @@ type Options = {
 };
 
 export function useMonaco(el: any, value: string, options: Options) {
+  // @ts-ignore
   const [editor, setEditor] = useState<monaco.editor.IStandaloneCodeEditor | null>(null);
-
+  // @ts-ignore
   const endpointInputMode: monaco.editor.IStandaloneEditorConstructionOptions = {
     fontSize: 14,
     scrollbar: {
@@ -33,7 +34,7 @@ export function useMonaco(el: any, value: string, options: Options) {
     links: false,
     folding: false,
   };
-
+  // @ts-ignore
   const normalMode: monaco.editor.IStandaloneEditorConstructionOptions = {
     fontSize: 12,
     wordWrap: 'wordWrapColumn',
@@ -41,6 +42,7 @@ export function useMonaco(el: any, value: string, options: Options) {
 
   const initView = (el: any) => {
     setEditor(
+      // @ts-ignore
       monaco.editor.create(el!, {
         ...(options.extendedEditorConfig.isEndpointInput ? endpointInputMode : normalMode),
         value: value,
@@ -59,6 +61,7 @@ export function useMonaco(el: any, value: string, options: Options) {
 
   useEffect(() => {
     if (editor) {
+      // @ts-ignore
       editor?.getModel()?.onDidChangeContent((event) => {
         options.onChange(editor.getValue());
       });

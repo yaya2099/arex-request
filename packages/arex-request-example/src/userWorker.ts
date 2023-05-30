@@ -25,3 +25,4 @@ self.MonacoEnvironment = {
 };
 
 monaco.languages.typescript.typescriptDefaults.setEagerModelSync(true);
+window.monaco = monaco;
