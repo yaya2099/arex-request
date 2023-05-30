@@ -119,9 +119,12 @@ const HttpRequest: FC<HttpRequestProps> = ({ onSave, onSend, onChangeTitle, brea
             });
           }}
         />
+        <div css={css`width: 5px`}></div>
         <Checkbox
           css={css`
-            margin: 5px;
+            margin-top: 5px;
+            margin-right: 5px;
+            display: ${store.request.inherited === undefined ? 'none' : 'inline:block'};
           `}
           checked={store.request.inherited}
           onChange={(val) => {

@@ -132,6 +132,7 @@ const MainBox = () => {
             theme={theme}
             // 以上是配置
             onSend={(request) => {
+              console.log(request,'req')
               return onSend(request, {
                 name: 'dev',
                 variables: [{ key: 'url', value: 'http://124.223.27.177:18080' }],

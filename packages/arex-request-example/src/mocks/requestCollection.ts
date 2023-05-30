@@ -29,7 +29,7 @@ export const requestCollection = [
     endpoint: '{{url}}/get',
     method: 'GET',
     params: [],
-    inherited: true,
+    inherited: undefined,
     inheritedEndpoint: '{{url}}/put',
     inheritedMethod: 'PUT',
   },
