@@ -49,8 +49,6 @@ const HttpTests = () => {
       state.request.testScript = state.request.testScript += text;
     });
   };
-
-  const testScriptEditor = useRef(null);
   return (
     <div
       css={css`
@@ -72,6 +70,7 @@ const HttpTests = () => {
           `}
         >
           <Editor
+            theme={store.theme === 'dark' ? 'vs-dark' : 'light'}
             options={{
               minimap: {
                 enabled: false,

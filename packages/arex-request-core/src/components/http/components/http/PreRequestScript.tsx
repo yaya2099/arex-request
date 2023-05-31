@@ -48,8 +48,6 @@ const HttpPreRequestScript = () => {
     });
   };
 
-  const testScriptEditor = useRef(null);
-
   return (
     <div
       css={css`
@@ -67,10 +65,10 @@ const HttpPreRequestScript = () => {
           css={css`
             min-width: 0;
             flex: 1;
-            //width: 100%;
           `}
         >
           <Editor
+            theme={store.theme === 'dark' ? 'vs-dark' : 'light'}
             options={{
               minimap: {
                 enabled: false,

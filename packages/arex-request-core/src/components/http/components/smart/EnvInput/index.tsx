@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import Editor from '@monaco-editor/react';
+import { theme } from 'antd';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import { FC, useContext, useEffect, useRef, useState } from 'react';
 
@@ -17,7 +18,10 @@ interface SmartEnvInputProps {
   value: string;
   onChange: (e: any) => void;
 }
+const { useToken } = theme;
+
 const SmartEnvInput: FC<SmartEnvInputProps> = ({ value, onChange, disabled }) => {
+  const token = useToken();
   const { store } = useContext(Context);
   const [open, setOpen] = useState(false);
   const [left, setLeft] = useState(0);
@@ -124,7 +128,7 @@ const SmartEnvInput: FC<SmartEnvInputProps> = ({ value, onChange, disabled }) =>
           color: white !important;
           border-radius: 2px;
         }
-        border: 1px solid #d9d9d9;
+        border: 1px solid ${token.token.colorBorder};
         flex: 1;
         //添加 min-width: 0 的原因: https://juejin.cn/post/6974356682574921765
         min-width: 0;

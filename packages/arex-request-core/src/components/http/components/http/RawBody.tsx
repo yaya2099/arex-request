@@ -35,6 +35,7 @@ const HttpRawBody = (props: any, ref: any) => {
       `}
     >
       <Editor
+        theme={store.theme === 'dark' ? 'vs-dark' : 'light'}
         options={{
           minimap: {
             enabled: false,

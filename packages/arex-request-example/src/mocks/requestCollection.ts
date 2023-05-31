@@ -1,7 +1,7 @@
 export const requestCollection = [
   {
     id: '0',
-    title: 'GET',
+    title: 'POST',
     preRequestScript: '',
     v: '',
     headers: [],
