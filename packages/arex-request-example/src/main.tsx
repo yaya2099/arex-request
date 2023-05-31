@@ -1,4 +1,3 @@
-import './userWorker';
 import 'antd/dist/reset.css';
 import './helpers/adapter';
 import 'allotment/dist/style.css';

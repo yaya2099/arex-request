@@ -1,13 +1,13 @@
 import { css, useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
+import { Editor } from '@monaco-editor/react';
 import { Button, Typography } from 'antd';
 import { theme } from 'antd';
 import React, { useContext, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useMonaco } from '../../../../composables/monaco';
 import { Context } from '../../../../providers/ConfigProvider';
-import {testCodeSnippet} from "./snippets";
+import { testCodeSnippet } from './snippets';
 const { Text } = Typography;
 const { useToken } = theme;
 export const ResponseTestHeader = styled.div`
@@ -51,19 +51,6 @@ const HttpTests = () => {
   };
 
   const testScriptEditor = useRef(null);
-  useMonaco(testScriptEditor, store.request.testScript, {
-    extendedEditorConfig: {
-      lineWrapping: true,
-      mode: 'javascript',
-      theme: store.theme,
-    },
-    onChange: (value: string) => {
-      dispatch((state) => {
-        state.request.testScript = value;
-      });
-    },
-  });
-
   return (
     <div
       css={css`
@@ -84,12 +71,27 @@ const HttpTests = () => {
             //width: 100%;
           `}
         >
-          <div
-            css={css`
-              height: 100%;
-            `}
-            ref={testScriptEditor}
-          ></div>
+          <Editor
+            options={{
+              minimap: {
+                enabled: false,
+              },
+              fontSize: 12,
+              wordWrap: 'wordWrapColumn',
+              automaticLayout: true,
+              fontFamily: 'IBMPlexMono, "Courier New", monospace',
+              scrollBeyondLastLine: false,
+            }}
+            language={'javascript'}
+            value={store.request.testScript}
+            onChange={(value) => {
+              dispatch((state) => {
+                if (value) {
+                  state.request.testScript = value;
+                }
+              });
+            }}
+          />
         </div>
 
         <div

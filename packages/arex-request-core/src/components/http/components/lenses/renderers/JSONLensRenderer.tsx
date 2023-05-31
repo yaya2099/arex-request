@@ -6,10 +6,9 @@ import { FC, useContext, useRef } from 'react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useMonaco } from '../../../../../composables/monaco';
 import { Context } from '../../../../../providers/ConfigProvider';
-// import { useMonaco } from '../../../../../../../composables/monaco';
 import { ArexRESTResponse } from '../../../helpers/types/ArexRESTResponse';
+import {Editor} from "@monaco-editor/react";
 function coppyUrl(text: string) {
   copy(text);
   message.success('copy success');
@@ -27,17 +26,6 @@ const JSONLensRenderer: FC<{ response: ArexRESTResponse }> = ({ response }) => {
   const { store, dispatch } = useContext(Context);
   const jsonResponse = useRef(null);
   const { t } = useTranslation();
-  useMonaco(jsonResponse, JSON.stringify(strToJson(jsonObj), null, 4), {
-    extendedEditorConfig: {
-      lineWrapping: true,
-      mode: 'json',
-      theme: store.theme,
-      readOnly: true,
-    },
-    onChange: (value: string) => {
-      console.log();
-    },
-  });
   return (
     <div
       css={css`
@@ -62,7 +50,7 @@ const JSONLensRenderer: FC<{ response: ArexRESTResponse }> = ({ response }) => {
                   display: block;
                 `}
                 // @ts-ignore
-                onClick={() => coppyUrl(JSON.stringify(jsonObj, null, 2))}
+                onClick={() => coppyUrl(JSON.stringify(strToJson(jsonObj), null, 4))}
               >
                 <CopyOutlined />
               </a>
@@ -76,12 +64,21 @@ const JSONLensRenderer: FC<{ response: ArexRESTResponse }> = ({ response }) => {
           overflow-y: auto;
         `}
       >
-        <div
-          css={css`
-            height: 100%;
-          `}
-          ref={jsonResponse}
-        ></div>
+        <Editor
+          options={{
+            minimap: {
+              enabled: false,
+            },
+            fontSize: 12,
+            wordWrap: 'wordWrapColumn',
+            automaticLayout: true,
+            fontFamily: 'IBMPlexMono, "Courier New", monospace',
+            scrollBeyondLastLine: false,
+            readOnly:true
+          }}
+          language={'json'}
+          value={JSON.stringify(strToJson(jsonObj), null, 4)}
+        />
       </div>
     </div>
   );

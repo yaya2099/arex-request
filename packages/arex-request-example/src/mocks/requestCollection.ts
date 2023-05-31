@@ -1,7 +1,7 @@
 export const requestCollection = [
   {
     id: '0',
-    title: 'POST',
+    title: 'GET',
     preRequestScript: '',
     v: '',
     headers: [],
@@ -9,7 +9,7 @@ export const requestCollection = [
     body: { contentType: 'application/json', body: JSON.stringify({ name: 'zt' }) } as any,
     auth: { authActive: false, authType: 'none' } as any,
     testScript: '',
-    endpoint: '{{url}}/post',
+    endpoint: 'http://offline.fx.ctripcorp.com/flight/baseapi/getuserbykeyword',
     method: 'POST',
     params: [],
     inherited: undefined,

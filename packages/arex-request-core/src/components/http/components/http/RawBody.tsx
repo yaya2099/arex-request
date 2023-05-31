@@ -1,10 +1,10 @@
 import { css } from '@emotion/react';
+import { Editor } from '@monaco-editor/react';
 import { message } from 'antd';
 import { forwardRef, useContext, useImperativeHandle, useRef } from 'react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useMonaco } from '../../../../composables/monaco';
 import { Context } from '../../../../providers/ConfigProvider';
 
 const HttpRawBody = (props: any, ref: any) => {
@@ -27,20 +27,6 @@ const HttpRawBody = (props: any, ref: any) => {
       message.error(t('error.json_prettify_invalid_body'));
     }
   };
-  const rawBodyParameters = useRef(null);
-  useMonaco(rawBodyParameters, store.request.body.body as string, {
-    extendedEditorConfig: {
-      lineWrapping: true,
-      mode: 'json',
-      theme: store.theme,
-    },
-    onChange: (value: string) => {
-      dispatch((state) => {
-        state.request.body.body = value;
-      });
-    },
-  });
-
   return (
     <div
       css={css`
@@ -48,12 +34,27 @@ const HttpRawBody = (props: any, ref: any) => {
         overflow-y: auto;
       `}
     >
-      <div
-        css={css`
-          height: 100%;
-        `}
-        ref={rawBodyParameters}
-      ></div>
+      <Editor
+        options={{
+          minimap: {
+            enabled: false,
+          },
+          fontSize: 12,
+          wordWrap: 'wordWrapColumn',
+          automaticLayout: true,
+          fontFamily: 'IBMPlexMono, "Courier New", monospace',
+          scrollBeyondLastLine: false,
+        }}
+        language={'json'}
+        value={store.request.body.body as string}
+        onChange={(value) => {
+          dispatch((state) => {
+            if (value) {
+              state.request.body.body = value;
+            }
+          });
+        }}
+      />
     </div>
   );
 };

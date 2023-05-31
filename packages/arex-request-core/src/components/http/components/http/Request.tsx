@@ -128,12 +128,12 @@ const HttpRequest: FC<HttpRequestProps> = ({
             });
           }}
         />
-        <SmartEnvInput
+        <Input
           disabled={Boolean(store.request.inherited)}
           value={store.request.inherited ? store.request.inheritedEndpoint : store.request.endpoint}
           onChange={(v) => {
             dispatch((state) => {
-              state.request.endpoint = v;
+              state.request.endpoint = v.target.value;
             });
           }}
         />
@@ -156,10 +156,7 @@ const HttpRequest: FC<HttpRequestProps> = ({
           }}
         />
         <div css={css``}>
-          <Button
-            onClick={() => handleRequest({ type: null })}
-            type='primary'
-          >
+          <Button onClick={() => handleRequest({ type: null })} type='primary'>
             {t('action.send')}
           </Button>
         </div>

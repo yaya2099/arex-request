@@ -1,14 +1,13 @@
-import { css, useTheme } from '@emotion/react';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { Editor } from '@monaco-editor/react';
 import { Button, theme, Typography } from 'antd';
 import React, { useContext, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useMonaco } from '../../../../composables/monaco';
 import { Context } from '../../../../providers/ConfigProvider';
-import {preTestCodeSnippet, testCodeSnippet} from "./snippets";
+import { preTestCodeSnippet } from './snippets';
 const { Text } = Typography;
-// import { useMonaco } from '../../../../../../composables/monaco';
 
 export const ResponseTestHeader = styled.div`
   display: flex;
@@ -29,7 +28,6 @@ export const ResponseTestWrapper = styled.div`
   & > div:last-of-type {
     width: 35%;
     text-align: left;
-    //border-left: 1px solid #eee;
     padding-left: 20px;
   }
 `;
@@ -42,7 +40,7 @@ const HttpPreRequestScript = () => {
   const ThemeColorPrimaryButton = styled(Button)`
     color: ${(props) => theme.token.colorPrimary} !important;
   `;
-  const codeSnippet = preTestCodeSnippet
+  const codeSnippet = preTestCodeSnippet;
 
   const addTest = (text: string) => {
     dispatch((state) => {
@@ -51,18 +49,6 @@ const HttpPreRequestScript = () => {
   };
 
   const testScriptEditor = useRef(null);
-  useMonaco(testScriptEditor, store.request.preRequestScript, {
-    extendedEditorConfig: {
-      lineWrapping: true,
-      mode: 'javascript',
-      theme: store.theme,
-    },
-    onChange: (value: string) => {
-      dispatch((state) => {
-        state.request.preRequestScript = value;
-      });
-    },
-  });
 
   return (
     <div
@@ -84,12 +70,27 @@ const HttpPreRequestScript = () => {
             //width: 100%;
           `}
         >
-          <div
-            css={css`
-              height: 100%;
-            `}
-            ref={testScriptEditor}
-          ></div>
+          <Editor
+            options={{
+              minimap: {
+                enabled: false,
+              },
+              fontSize: 12,
+              wordWrap: 'wordWrapColumn',
+              automaticLayout: true,
+              fontFamily: 'IBMPlexMono, "Courier New", monospace',
+              scrollBeyondLastLine: false,
+            }}
+            language={'javascript'}
+            value={store.request.preRequestScript}
+            onChange={(value) => {
+              dispatch((state) => {
+                if (value) {
+                  state.request.preRequestScript = value;
+                }
+              });
+            }}
+          />
         </div>
 
         <div
