@@ -3,12 +3,11 @@ import { css } from '@emotion/react';
 import { Editor } from '@monaco-editor/react';
 import { message, Tooltip } from 'antd';
 import copy from 'copy-to-clipboard';
-import { FC, useContext, useRef } from 'react';
+import { FC, useContext } from 'react';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
-import { Context } from '../../../../../providers/ConfigProvider';
 import { ArexRESTResponse } from '../../../helpers/types/ArexRESTResponse';
+import {Context} from "../../../../../providers/ConfigProvider";
 function coppyUrl(text: string) {
   copy(text);
   message.success('copy success');
@@ -21,6 +20,7 @@ function strToJson(str: string) {
   }
 }
 const JSONLensRenderer: FC<{ response: ArexRESTResponse }> = ({ response }) => {
+  const { store } = useContext(Context);
   // @ts-ignore
   const jsonObj = response.body;
   return (
@@ -62,6 +62,7 @@ const JSONLensRenderer: FC<{ response: ArexRESTResponse }> = ({ response }) => {
         `}
       >
         <Editor
+          theme={store.theme === 'dark' ? 'vs-dark' : 'light'}
           options={{
             minimap: {
               enabled: false,
