@@ -83,7 +83,14 @@ const SmartBreadcrumb: FC<SmartBreadcrumbProps> = ({
               }
             `}
           >
-            <Text type='secondary' css={css`font-size: 12px`}>{description}</Text>
+            <Text
+              type='secondary'
+              css={css`
+                font-size: 12px;
+              `}
+            >
+              {description}
+            </Text>
 
             <div
               className={'editor-icon'}
@@ -102,6 +109,10 @@ const SmartBreadcrumb: FC<SmartBreadcrumbProps> = ({
           </div>
 
           <Select
+            css={css`
+              min-width: 120px;
+            `}
+            placeholder={'labels'}
             mode={'multiple'}
             defaultValue={tags}
             options={tagOptions}

@@ -7,7 +7,6 @@ import { ArexRESTResponse } from '../../helpers/types/ArexRESTResponse';
 import Console from '../http/Console';
 import TestResult from '../http/TestResult';
 import LensesHeadersRenderer from './HeadersRenderer';
-import BodySegmented from './renderers/BodySegmented';
 import JSONLensRenderer from './renderers/JSONLensRenderer';
 import RawLensRenderer from './renderers/RawLensRenderer';
 

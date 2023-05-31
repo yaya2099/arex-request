@@ -1,14 +1,9 @@
-import { useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Col, Row, theme } from 'antd';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import React from 'react';
 
 import { HoppRESTHeader } from '../../data/rest';
-
-// import { HoppRESTHeader } from '../../helpers/data/rest';
-
-// import { HoppRESTHeader } from '../../data/rest';
 
 const { useToken } = theme;
 const LensesHeadersRendererEntry: FC<{ header: HoppRESTHeader }> = ({ header }) => {

@@ -1,5 +1,6 @@
 import { CopyOutlined } from '@ant-design/icons';
 import { css } from '@emotion/react';
+import { Editor } from '@monaco-editor/react';
 import { message, Tooltip } from 'antd';
 import copy from 'copy-to-clipboard';
 import { FC, useContext, useRef } from 'react';
@@ -8,7 +9,6 @@ import { useTranslation } from 'react-i18next';
 
 import { Context } from '../../../../../providers/ConfigProvider';
 import { ArexRESTResponse } from '../../../helpers/types/ArexRESTResponse';
-import {Editor} from "@monaco-editor/react";
 function coppyUrl(text: string) {
   copy(text);
   message.success('copy success');
@@ -23,9 +23,6 @@ function strToJson(str: string) {
 const JSONLensRenderer: FC<{ response: ArexRESTResponse }> = ({ response }) => {
   // @ts-ignore
   const jsonObj = response.body;
-  const { store, dispatch } = useContext(Context);
-  const jsonResponse = useRef(null);
-  const { t } = useTranslation();
   return (
     <div
       css={css`
@@ -74,7 +71,7 @@ const JSONLensRenderer: FC<{ response: ArexRESTResponse }> = ({ response }) => {
             automaticLayout: true,
             fontFamily: 'IBMPlexMono, "Courier New", monospace',
             scrollBeyondLastLine: false,
-            readOnly:true
+            readOnly: true,
           }}
           language={'json'}
           value={JSON.stringify(strToJson(jsonObj), null, 4)}

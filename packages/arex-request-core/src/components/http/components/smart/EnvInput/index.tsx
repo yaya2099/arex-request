@@ -1,15 +1,13 @@
 import { css } from '@emotion/react';
 import Editor from '@monaco-editor/react';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useContext, useEffect, useRef, useState } from 'react';
 
-// import { useMonaco } from '../../../../../composables/monaco';
-// import { Context } from '../../../../../providers/ConfigProvider';
+import { Context } from '../../../../../providers/ConfigProvider';
 import {
   getMarkFromToArr,
   HOPP_ENVIRONMENT_REGEX,
 } from '../../../editor/extensions/HoppEnvironment';
-// import { useMonaco } from '../../../../../../../composables/monaco';
 import SmartTooltip from '../Tooltip';
 import TooltipContent from './TooltipContent';
 import { getElementViewPosition } from './util';
@@ -20,14 +18,7 @@ interface SmartEnvInputProps {
   onChange: (e: any) => void;
 }
 const SmartEnvInput: FC<SmartEnvInputProps> = ({ value, onChange, disabled }) => {
-  // TODO editor type
-  // const { store } = useContext(Context);
-  const store = {
-    environment: {
-      name: 'dev',
-      variables: [],
-    },
-  };
+  const { store } = useContext(Context);
   const [open, setOpen] = useState(false);
   const [left, setLeft] = useState(0);
   const [top, setTop] = useState(0);
@@ -51,7 +42,7 @@ const SmartEnvInput: FC<SmartEnvInputProps> = ({ value, onChange, disabled }) =>
 
   const editorRef = useRef(null);
 
-  function handleEditorDidMount(editor, monaco) {
+  function handleEditorDidMount(editor: any) {
     editorRef.current = editor;
     setEditor(editor);
   }
