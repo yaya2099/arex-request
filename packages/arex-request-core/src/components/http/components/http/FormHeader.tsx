@@ -1,10 +1,13 @@
-import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import { CopyOutlined, DeleteOutlined, FieldTimeOutlined, PlusOutlined } from '@ant-design/icons';
 import styled from '@emotion/styled';
-import { Button, Tooltip } from 'antd';
-import { FC, useContext } from 'react';
+import { Button, message, Tooltip } from 'antd';
+import copy from 'copy-to-clipboard';
+import { FC } from 'react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Updater } from 'use-immer';
+
+// import { KeyValueType } from '../../../../services/FileSystem.type';
 export type KeyValueType = {
   id: string;
   key: string;
@@ -27,27 +30,52 @@ export const FormHeaderWrapper = styled.div`
   }
 `;
 
-const FormHeader: FC<{ update: Updater<KeyValueType[]>; title: string }> = (props) => {
+const FormHeader: FC<{ update: Updater<KeyValueType[]>; title: string; dataSource: any }> = (
+  props,
+) => {
   const { t } = useTranslation();
 
   const handleAddParam = () => {
     const newValue: KeyValueType = {
+      id: '',
       key: '',
       value: '',
       active: true,
-      id: String(Math.random()),
     };
     props.update((state) => {
       state.push(newValue);
     });
   };
 
+  // handleAddRecord
+  const handleAddRecord = () => {
+    const newValue: KeyValueType = {
+      id: '',
+      key: 'arex-force-record',
+      value: 'true',
+      active: true,
+    };
+    props.update((state) => {
+      state.push(newValue);
+    });
+  };
   const handleClearAllParams = () => props.update([]);
+
+  function copyUrl() {
+    copy(JSON.stringify(props.dataSource.map((i: any) => ({ key: i.key, value: i.value }))));
+    message.success('copy success🎉');
+  }
 
   return (
     <FormHeaderWrapper>
       <span>{props.title}</span>
       <div>
+        <Tooltip title={'Copy'}>
+          <Button type='text' icon={<CopyOutlined />} onClick={copyUrl} />
+        </Tooltip>
+        <Tooltip title={t('record')}>
+          <Button type='text' icon={<FieldTimeOutlined />} onClick={handleAddRecord} />
+        </Tooltip>
         <Tooltip title={t('action.clear_all')}>
           <Button type='text' icon={<DeleteOutlined />} onClick={handleClearAllParams} />
         </Tooltip>

@@ -27,7 +27,11 @@ const HttpHeaders = () => {
 
   return (
     <div>
-      <FormHeader update={setRequestHeaders} title={t('request.header_list')} />
+      <FormHeader
+        dataSource={requestHeaders}
+        update={setRequestHeaders}
+        title={t('request.header_list')}
+      />
       <FormTable
         size='small'
         rowKey={'id'}

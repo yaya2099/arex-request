@@ -33,7 +33,7 @@ export interface HttpProps {
   onSend: (
     r: ArexRESTRequest,
   ) => Promise<{ response: ArexRESTResponse; testResult: PostmanTestResult }>;
-  onSave: (r: ArexRESTRequest) => void;
+  onSave: (r: ArexRESTRequest,response: ArexRESTResponse) => void;
   config: HttpConfig;
   breadcrumbItems: { title: string }[];
   onChange: ({

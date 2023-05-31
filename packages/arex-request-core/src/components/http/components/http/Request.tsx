@@ -107,7 +107,8 @@ const HttpRequest: FC<HttpRequestProps> = ({
               if (request.body.contentType === '0') {
                 request.body.body = '';
               }
-              onSave(request);
+              // @ts-ignore
+              onSave(request, store.response);
             }}
           >
             {t('action.save')}
