@@ -8,7 +8,8 @@ import { useTranslation } from 'react-i18next';
 import { Context } from '../../../../providers/ConfigProvider';
 import { HttpProps } from '../../index';
 import SmartBreadcrumb from '../smart/Breadcrumb';
-import SmartEnvInput from '../smart/EnvInput';
+// import SmartEnvInput from '../smart/EnvInput';
+import EnvInput from '../smart/EnvInput';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -128,12 +129,12 @@ const HttpRequest: FC<HttpRequestProps> = ({
             });
           }}
         />
-        <Input
+        <EnvInput
           disabled={Boolean(store.request.inherited)}
           value={store.request.inherited ? store.request.inheritedEndpoint : store.request.endpoint}
           onChange={(v) => {
             dispatch((state) => {
-              state.request.endpoint = v.target.value;
+              state.request.endpoint = v;
             });
           }}
         />
