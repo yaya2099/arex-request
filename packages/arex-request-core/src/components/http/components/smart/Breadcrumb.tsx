@@ -89,7 +89,7 @@ const SmartBreadcrumb: FC<SmartBreadcrumbProps> = ({
                 font-size: 12px;
               `}
             >
-              {description || 'description'}
+              {descriptionValue || description || 'description'}
             </Text>
 
             <div
