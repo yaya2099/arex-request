@@ -1,6 +1,6 @@
 {
   "name": "arex-request-core",
-  "version": "0.0.1-beta.36",
+  "version": "0.0.1-beta.37",
   "type": "module",
   "main": "dist/arex-request-core.umd.cjs",
   "module": "dist/arex-request-core.js",
@@ -23,7 +23,7 @@
     "@emotion/styled": "^11.10.6",
     "@monaco-editor/react": "^4.5.1",
     "allotment": "^1.18.1",
-    "antd": "^5.4.2",
+    "antd": "^5.6.0",
     "copy-to-clipboard": "^3.3.3",
     "i18next": "^22.4.14",
     "immer": "^9.0.21",

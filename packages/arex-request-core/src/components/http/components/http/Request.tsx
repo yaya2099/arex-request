@@ -141,7 +141,7 @@ const HttpRequest: FC<HttpRequestProps> = ({
         />
         <div
           css={css`
-            width: 5px;
+            width: 10px;
           `}
         ></div>
         <Checkbox

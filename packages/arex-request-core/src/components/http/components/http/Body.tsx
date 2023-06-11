@@ -92,7 +92,7 @@ const HttpBody = () => {
             size={'small'}
             options={rawSmallCateOptions}
             optionLabelProp={'test'}
-            dropdownMatchSelectWidth={120}
+            popupMatchSelectWidth={120}
             onChange={onChange}
           />
         </div>
