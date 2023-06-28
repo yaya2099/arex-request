@@ -139,7 +139,7 @@ const SmartEnvInput: FC<SmartEnvInputProps> = ({ value, onChange, disabled }) =>
     >
       <Editor
         height='21px'
-        defaultValue={value}
+        value={value}
         onMount={handleEditorDidMount}
         onChange={(val) => {
           onChange(val);
