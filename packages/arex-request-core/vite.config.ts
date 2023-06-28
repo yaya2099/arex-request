@@ -25,7 +25,7 @@ export default defineConfig({
       fileName: 'arex-request-core',
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'antd'],
+      external: ['react', 'react-dom', 'antd', '~icons/lucide/grip-vertical'],
       output: {
         globals: {
           react: 'react',
