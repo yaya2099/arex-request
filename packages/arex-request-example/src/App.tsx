@@ -1,8 +1,10 @@
 import { css } from '@emotion/react';
 import { ConfigProvider, theme } from 'antd';
+import { useRoutes } from 'react-router-dom';
 
 import useDarkMode from './hooks/use-dark-mode';
 import MainBox from './layouts/MainBox';
+import routerConfig from './routers';
 const { darkAlgorithm } = theme;
 
 const ConfigMiddlewareProvider = ({ children }: any) => {
@@ -19,6 +21,7 @@ const ConfigMiddlewareProvider = ({ children }: any) => {
 };
 
 function App() {
+  const routesContent = useRoutes(routerConfig);
   return (
     <div
       className='App'
@@ -26,9 +29,7 @@ function App() {
         height: 100vh;
       `}
     >
-      <ConfigMiddlewareProvider>
-        <MainBox />
-      </ConfigMiddlewareProvider>
+      <ConfigMiddlewareProvider>{routesContent}</ConfigMiddlewareProvider>
     </div>
   );
 }
