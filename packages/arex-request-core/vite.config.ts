@@ -3,6 +3,7 @@
 import react from '@vitejs/plugin-react-swc';
 // @ts-ignore
 import path from 'path';
+import Icons from 'unplugin-icons/vite';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
@@ -10,6 +11,7 @@ export default defineConfig({
     react({
       jsxImportSource: '@emotion/react',
     }),
+    Icons({ compiler: 'jsx', jsx: 'react' }),
   ],
   test: {
     globals: true,
@@ -25,7 +27,7 @@ export default defineConfig({
       fileName: 'arex-request-core',
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'antd', '~icons/lucide/grip-vertical'],
+      external: ['react', 'react-dom', 'antd'],
       output: {
         globals: {
           react: 'react',
