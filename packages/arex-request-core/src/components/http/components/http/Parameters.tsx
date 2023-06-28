@@ -1,47 +1,42 @@
-import Icon, { UsergroupAddOutlined } from '@ant-design/icons';
+import {
+  CheckCircleOutlined,
+  DeleteOutlined,
+  StopOutlined,
+  UsergroupAddOutlined,
+} from '@ant-design/icons';
 import { css } from '@emotion/react';
+import { Button, Input, Space, theme, Tooltip } from 'antd';
 import PM from 'postman-collection';
-import React, { FC, useContext, useEffect, useMemo, useState } from 'react';
+import React, { FC, useContext, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ReactSortable } from 'react-sortablejs';
 
-// import IconGripVertical from '~icons/lucide/grip-vertical';
 import { Context } from '../../../../providers/ConfigProvider';
+import FormHeader from './FormHeader';
 import { converToUrl, removePMparams } from './helpers';
-interface ItemType {
-  id: number;
-  key: string;
-  value: string;
-  active: boolean;
-}
-
+const { useToken } = theme;
 const HttpParameters: FC = () => {
+  const { token } = useToken();
   const { store, dispatch } = useContext(Context);
   const { endpoint } = store.request;
-  // const setEndpoint = (newEndpoint: string) => {
-  //   dispatch((state) => {
-  //     state.request.endpoint = newEndpoint;
-  //   });
-  // };
-
-  const { params } = store.request;
-  const setParams = (newParams:any) => {
+  const setEndpoint = (newEndpoint: string) => {
     dispatch((state) => {
-      state.request.params = newParams;
+      state.request.endpoint = newEndpoint;
     });
   };
-  const newparams = useMemo(()=>{
-    return params.map((p,index)=>({
+
+  const { params } = store.request;
+  const setParams = (handledParams: any) => {
+    dispatch((state) => {
+      state.request.params = handledParams;
+    });
+  };
+  const handledParams = useMemo(() => {
+    return params.map((p, index) => ({
       ...p,
-      id:index
-    }))
-  },[params])
-  // const [endpoint, setEndpoint] = useState('https://hoppscotch.io/');
-
-  // const [params, setParams] = useState<ItemType[]>([
-  //   { id: 0, key: 'name', value: 'zt' },
-  //   { id: 1, key: 'age', value: '18' },
-  // ]);
-
+      id: index,
+    }));
+  }, [params]);
   useEffect(() => {
     const query = PM.Url.parse(endpoint).query || [];
     if (
@@ -61,60 +56,38 @@ const HttpParameters: FC = () => {
   }, [endpoint]);
 
   useEffect(() => {
-    dispatch((state) => {
-      const endpointParse = PM.Url.parse(endpoint);
-
-      const endpointParseCopy = removePMparams(endpointParse);
-      state.request.endpoint = endpointParseCopy.toString() + converToUrl(params);
-    });
+    const endpointParse = PM.Url.parse(endpoint);
+    const endpointParseCopy = removePMparams(endpointParse);
+    if (params.length > 0) {
+      setEndpoint(endpointParseCopy.toString() + converToUrl(params));
+    }
   }, [params]);
-
+  const { t } = useTranslation();
   return (
-    <div
-      css={css`
-        input {
-          border: none;
-          border: 0.5px solid silver;
-        }
-        input:focus {
-          outline: none;
-        }
-      `}
-    >
-      {/*<p>{endpoint}</p>*/}
-      {/*<input*/}
-      {/*  css={css`*/}
-      {/*    width: 500px;*/}
-      {/*    font-size: 16px;*/}
-      {/*    padding: 5px;*/}
-      {/*  `}*/}
-      {/*  type='text'*/}
-      {/*  value={endpoint}*/}
-      {/*  onChange={(val) => {*/}
-      {/*    setEndpoint(val.target.value);*/}
-      {/*  }}*/}
-      {/*/>*/}
+    <div css={css``}>
       <div
         css={css`
           height: 20px;
         `}
       ></div>
-      {/*header*/}
       <div
         css={css`
           display: flex;
           justify-content: space-between;
         `}
       >
-        <label className='font-semibold truncate text-secondaryLight'>头</label>
-
+        <label className='font-semibold truncate text-secondaryLight'>
+          {t('request.header_list')}
+        </label>
         <div>
           <UsergroupAddOutlined
             css={css`
               cursor: pointer;
             `}
             onClick={() => {
-              setParams(newparams.concat([{ value: '', key: '', id: params.length, active: true }]));
+              setParams(
+                handledParams.concat([{ value: '', key: '', id: params.length, active: true }]),
+              );
             }}
           />
         </div>
@@ -122,15 +95,15 @@ const HttpParameters: FC = () => {
       <ReactSortable
         animation={250}
         handle={'.handle'}
-        list={newparams}
+        list={handledParams}
         setList={setParams}
         css={css`
-          border: 0.5px solid silver;
+          border: 0.5px solid ${token.colorBorder};
           display: flex;
           flex-direction: column;
         `}
       >
-        {newparams.map((item) => (
+        {handledParams.map((item) => (
           <div
             key={item.id}
             css={css`
@@ -140,42 +113,96 @@ const HttpParameters: FC = () => {
             <div
               className={'handle'}
               css={css`
-                padding: 10px;
-                border: 0.5px solid silver;
+                padding: 5px 12px;
+                border: 0.5px solid ${token.colorBorder};
                 cursor: grab;
               `}
             >
               <UsergroupAddOutlined />
-              {/*<Icon component={IconGripVertical} css={css``} />*/}
             </div>
-            <input
+            <div
               css={css`
+                border: 0.5px solid ${token.colorBorder};
                 flex: 1;
+                display: flex;
+                align-items: center;
+                padding: 0 10px;
               `}
-              type={'text'}
-              value={item.key}
-              onChange={(val) => {
-                const s = JSON.parse(JSON.stringify(newparams));
-                const newValue = s.find((i:any) => i.id === item.id);
-                newValue.key = val.target.value;
-                setParams(s);
-              }}
-            />
+            >
+              <Input
+                size={'small'}
+                bordered={false}
+                css={css``}
+                type={'text'}
+                value={item.key}
+                onChange={(val) => {
+                  const s = JSON.parse(JSON.stringify(handledParams));
+                  const newValue = s.find((i: any) => i.id === item.id);
+                  newValue.key = val.target.value;
+                  setParams(s);
+                }}
+              />
+            </div>
 
-            <input
+            <div
               css={css`
+                border: 0.5px solid ${token.colorBorder};
                 flex: 1;
+                display: flex;
+                align-items: center;
+                padding: 0 10px;
               `}
-              type={'text'}
-              value={item.value}
-              onChange={(val) => {
-                const s = JSON.parse(JSON.stringify(newparams));
-                const newValue = s.find((i:any) => i.id === item.id);
-                newValue.value = val.target.value;
-                setParams(s);
-              }}
-            />
-            <span>{JSON.stringify(item.active)}</span>
+            >
+              <Input
+                size={'small'}
+                bordered={false}
+                css={css``}
+                type={'text'}
+                value={item.value}
+                onChange={(val) => {
+                  const s = JSON.parse(JSON.stringify(handledParams));
+                  const newValue = s.find((i: any) => i.id === item.id);
+                  newValue.value = val.target.value;
+                  setParams(s);
+                }}
+              />
+            </div>
+
+            <div
+              css={css`
+                border: 0.5px solid ${token.colorBorder};
+                //flex: 1;
+                display: flex;
+                align-items: center;
+                padding: 0 5px;
+              `}
+            >
+              <>
+                <Tooltip title={item.active ? t('action.turn_off') : t('action.turn_on')}>
+                  <Button
+                    style={{ color: '#10b981' }}
+                    type='text'
+                    size='small'
+                    icon={item.active ? <CheckCircleOutlined /> : <StopOutlined />}
+                    // onClick={() => handleDisable(i)}
+                  />
+                </Tooltip>
+                <Tooltip title={t('action.remove')}>
+                  <Button
+                    style={{ color: '#ef4444' }}
+                    type='text'
+                    size='small'
+                    icon={<DeleteOutlined />}
+                    onClick={
+                      () => {}
+                      // paramsUpdater?.((params) => {
+                      //   params.splice(i, 1);
+                      // })
+                    }
+                  />
+                </Tooltip>
+              </>
+            </div>
           </div>
         ))}
       </ReactSortable>

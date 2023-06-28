@@ -1,11 +1,11 @@
 {
   "name": "arex-request-core",
-  "version": "0.0.1-beta.39",
+  "version": "0.0.1-beta.40",
   "type": "module",
   "main": "dist/arex-request-core.umd.cjs",
   "module": "dist/arex-request-core.js",
   "scripts": {
-    "build:code": "vite build",
+    "build:code": "tsc && vite build",
     "build:decl": "tsc --project tsconfig.decl.json",
     "do-build": "pnpm run build:code && pnpm run build:decl",
     "do-test": "vitest",
