@@ -14,13 +14,14 @@ import PM from 'postman-collection';
 import React, { FC, useContext, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ReactSortable } from 'react-sortablejs';
-import * as IconGripVertical from "~icons/lucide/grip-vertical"
+
+import IconGripVertical from '~icons/lucide/grip-vertical';
+
 // import IconGripVertical from "~icons/lucide/grip-vertical"
 import { Context } from '../../../../providers/ConfigProvider';
 import FormHeader, { FormHeaderWrapper } from './FormHeader';
 import { converToUrl, removePMparams } from './helpers';
 const { useToken } = theme;
-console.log(IconGripVertical.default,'IconGripVertical')
 const HttpParameters: FC = () => {
   const { token } = useToken();
   const { store, dispatch } = useContext(Context);
@@ -135,7 +136,7 @@ const HttpParameters: FC = () => {
                   cursor: grab;
                 `}
               >
-                <Icon  component={IconGripVertical.default} />
+                <Icon component={IconGripVertical} />
               </div>
               <div
                 css={css`
