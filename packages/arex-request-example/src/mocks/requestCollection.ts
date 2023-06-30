@@ -9,7 +9,7 @@ export const requestCollection = [
     body: { contentType: 'application/json', body: JSON.stringify({ name: 'zt' }) } as any,
     auth: { authActive: false, authType: 'none' } as any,
     testScript: '',
-    endpoint: '',
+    endpoint: '{{url}}/put',
     method: 'POST',
     params: [],
     inherited: undefined,

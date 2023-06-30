@@ -54,7 +54,7 @@ const SmartEnvInput: FC<SmartEnvInputProps> = ({ value, onChange, disabled }) =>
     if (editor) {
       decorations(value, editor);
     }
-  }, [editor]);
+  }, [editor,value]);
   // ============================== 鼠标mouseenter时，为所有mark添加mouse事件 ==============================
   useEffect(() => {
     if (smartEnvInputRef.current) {

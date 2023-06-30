@@ -222,6 +222,9 @@ const HttpParameters: FC = () => {
                           const findex = s.findIndex((i: any) => i.id === item.id);
                           s.splice(findex, 1);
                           setParams(s);
+                          const endpointParse = PM.Url.parse(endpoint);
+                          const endpointParseCopy = removePMparams(endpointParse);
+                          setEndpoint(endpointParseCopy.toString());
                         }
                         // paramsUpdater?.((params) => {
                         //   params.splice(i, 1);
