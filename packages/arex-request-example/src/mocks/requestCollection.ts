@@ -26,7 +26,7 @@ export const requestCollection = [
     body: { contentType: 'application/json', body: '' } as any,
     auth: { authActive: false, authType: 'none' } as any,
     testScript: '',
-    endpoint: '{{url}}/get',
+    endpoint: 'http://127.0.0.1:8081/api/report/listRecord?test1=testvalue&dsadsadas=dasdsdas&dsadasd=null',
     method: 'GET',
     params: [],
     inherited: undefined,
