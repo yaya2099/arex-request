@@ -15,7 +15,7 @@ const { useToken } = theme;
 const HttpRequestOptions: FC<{ config?: TabConfig }> = ({ config }) => {
   const token = useToken();
   const { t } = useTranslation();
-  const [activeKey, setActiveKey] = useState('0');
+  const [activeKey, setActiveKey] = useState('3');
   const { store } = useContext(Context);
 
   const items = useMemo(() => {
