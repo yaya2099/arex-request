@@ -55,7 +55,22 @@ const HttpRequestOptions: FC<{ config?: TabConfig }> = ({ config }) => {
         forceRender: true,
       },
       // PreRequestScript
-      { label: t('tab.body'), key: '3', children: <HttpBody />, forceRender: true },
+      {
+        label: (
+          <div>
+            {t('tab.body')}{' '}
+            <Badge
+              color={token.token.colorPrimary}
+              css={css`
+                display: ${(store.request?.body?.body || '').length > 0 ? 'inline-block' : 'none'};
+              `}
+            />
+          </div>
+        ),
+        key: '3',
+        children: <HttpBody />,
+        forceRender: true,
+      },
       {
         label: (
           <div>
@@ -75,7 +90,7 @@ const HttpRequestOptions: FC<{ config?: TabConfig }> = ({ config }) => {
       {
         label: (
           <div>
-            {t('tab.tests')}{' '}
+            {t('tab.tests')} <span>{store.request.testScript}</span>
             <Badge
               color={token.token.colorPrimary}
               css={css`

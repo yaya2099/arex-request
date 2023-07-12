@@ -50,7 +50,7 @@ const HttpRawBody = (props: any, ref: any) => {
         value={store.request.body.body as string}
         onChange={(value) => {
           dispatch((state) => {
-            if (value) {
+            if (value!==undefined) {
               state.request.body.body = value;
             }
           });

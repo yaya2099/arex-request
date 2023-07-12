@@ -83,7 +83,7 @@ const HttpPreRequestScript = () => {
             value={store.request.preRequestScript}
             onChange={(value) => {
               dispatch((state) => {
-                if (value) {
+                if (value!==undefined) {
                   state.request.preRequestScript = value;
                 }
               });

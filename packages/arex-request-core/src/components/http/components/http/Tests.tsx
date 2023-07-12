@@ -85,7 +85,7 @@ const HttpTests = () => {
             value={store.request.testScript}
             onChange={(value) => {
               dispatch((state) => {
-                if (value) {
+                if (value !== undefined) {
                   state.request.testScript = value;
                 }
               });
