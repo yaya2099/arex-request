@@ -1,6 +1,6 @@
 {
   "name": "arex-request-core",
-  "version": "0.0.1-beta.50",
+  "version": "0.0.1-beta.51",
   "type": "module",
   "main": "dist/arex-request-core.umd.cjs",
   "module": "dist/arex-request-core.js",

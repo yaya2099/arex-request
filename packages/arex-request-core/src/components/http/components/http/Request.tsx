@@ -62,6 +62,12 @@ const HttpRequest: FC<HttpRequestProps> = ({
     },
   ];
 
+  const reset = () => {
+    dispatch((state) => {
+      state.response = null;
+    });
+  };
+
   const handleRequest = ({ type }: any) => {
     dispatch((state) => {
       state.response = {
@@ -158,9 +164,13 @@ const HttpRequest: FC<HttpRequestProps> = ({
           }}
         />
         <div css={css``}>
-          <Button onClick={() => handleRequest({ type: null })} type='primary'>
-            {t('action.send')}
-          </Button>
+          {store.response?.type === 'loading' ? (
+            <Button onClick={() => reset()}>{t('action.cancel')}</Button>
+          ) : (
+            <Button onClick={() => handleRequest({ type: null })} type='primary'>
+              {t('action.send')}
+            </Button>
+          )}
         </div>
       </HeaderWrapper>
     </div>

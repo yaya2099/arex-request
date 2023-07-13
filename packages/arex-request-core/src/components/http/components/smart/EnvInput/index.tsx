@@ -48,13 +48,19 @@ const SmartEnvInput: FC<SmartEnvInputProps> = ({ value, onChange, disabled }) =>
 
   function handleEditorDidMount(editor: any) {
     editorRef.current = editor;
+    editor.onKeyDown((e: React.KeyboardEvent) => {
+      if (e.keyCode === monaco.KeyCode.Enter) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    });
     setEditor(editor);
   }
   useEffect(() => {
     if (editor) {
       decorations(value, editor);
     }
-  }, [editor,value]);
+  }, [editor, value]);
   // ============================== 鼠标mouseenter时，为所有mark添加mouse事件 ==============================
   useEffect(() => {
     if (smartEnvInputRef.current) {
@@ -146,6 +152,7 @@ const SmartEnvInput: FC<SmartEnvInputProps> = ({ value, onChange, disabled }) =>
           decorations(val, editor);
         }}
         options={{
+          wordWrap: 'off',
           automaticLayout: true,
           fontFamily: 'IBMPlexMono, "Courier New", monospace',
           minimap: {
