@@ -71,13 +71,13 @@ const HttpBody = () => {
                 dispatch((state) => {
                   // @ts-ignore
                   state.request.body.contentType = '0';
-                  state.request.body.body = '';
+                  // state.request.body.body = '';
                 });
               }
               if (val.target.value === 'raw') {
                 dispatch((state) => {
                   state.request.body.contentType = 'application/json';
-                  state.request.body.body = '';
+                  // state.request.body.body = '';
                 });
               }
             }}
