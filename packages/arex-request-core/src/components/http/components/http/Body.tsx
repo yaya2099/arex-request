@@ -6,6 +6,13 @@ import { useTranslation } from 'react-i18next';
 import { Context } from '../../../../providers/ConfigProvider';
 import BinaryBody from './BinaryBody';
 import RawBody from './RawBody';
+const genContentType = (contentType: string | null) => {
+  if (contentType?.includes('application/json')) {
+    return 'raw';
+  } else {
+    return 'binary';
+  }
+};
 const HttpBody = () => {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -58,14 +65,7 @@ const HttpBody = () => {
         <div>
           <Radio.Group
             options={bigCateOptions}
-            value={
-              // @ts-ignore
-              {
-                '0': 'binary',
-                'application/json': 'raw',
-                // @ts-ignore
-              }[store.request.body.contentType]
-            }
+            value={genContentType(store.request.body.contentType)}
             onChange={(val) => {
               if (val.target.value === 'binary') {
                 dispatch((state) => {
