@@ -90,7 +90,7 @@ const HttpRequestOptions: FC<{ config?: TabConfig }> = ({ config }) => {
       {
         label: (
           <div>
-            {t('tab.tests')} <span>{store.request.testScript}</span>
+            {t('tab.tests')}{' '}
             <Badge
               color={token.token.colorPrimary}
               css={css`
