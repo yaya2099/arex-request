@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { Editor } from '@monaco-editor/react';
+import { Editor } from '@arextest/monaco-react';
 import { message } from 'antd';
 import { forwardRef, useContext, useImperativeHandle, useRef } from 'react';
 import React from 'react';

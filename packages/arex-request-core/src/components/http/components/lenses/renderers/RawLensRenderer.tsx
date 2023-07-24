@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { Editor } from '@monaco-editor/react';
+import { Editor } from '@arextest/monaco-react';
 import React, { FC, useContext } from 'react';
 
 import { Context } from '../../../../../providers/ConfigProvider';

@@ -1,6 +1,6 @@
 import { CopyOutlined } from '@ant-design/icons';
 import { css } from '@emotion/react';
-import { Editor } from '@monaco-editor/react';
+import { Editor } from '@arextest/monaco-react';
 import { message, Tooltip } from 'antd';
 import copy from 'copy-to-clipboard';
 import { FC, useContext } from 'react';

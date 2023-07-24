@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { Editor } from '@monaco-editor/react';
+import { Editor } from '@arextest/monaco-react';
 import { Button, theme, Typography } from 'antd';
 import React, { useContext, useRef } from 'react';
 import { useTranslation } from 'react-i18next';

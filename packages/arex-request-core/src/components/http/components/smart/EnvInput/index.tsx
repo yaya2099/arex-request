@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import Editor from '@monaco-editor/react';
+import Editor from '@arextest/monaco-react';
 import { theme } from 'antd';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import { FC, useContext, useEffect, useRef, useState } from 'react';
