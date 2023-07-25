@@ -1,8 +1,18 @@
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { Breadcrumb, Button, Checkbox, Dropdown, Input, MenuProps, message, Select } from 'antd';
-import { FC, useContext, useMemo } from 'react';
+import {
+  Breadcrumb,
+  Button,
+  Checkbox,
+  Dropdown,
+  Input,
+  MenuProps,
+  message,
+  Select,
+  Space,
+} from 'antd';
+import { FC, useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Context } from '../../../../providers/ConfigProvider';
@@ -10,6 +20,7 @@ import { HttpProps } from '../../index';
 import SmartBreadcrumb from '../smart/Breadcrumb';
 // import SmartEnvInput from '../smart/EnvInput';
 import EnvInput from '../smart/EnvInput';
+import SaveAs from './SaveAs';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -22,6 +33,8 @@ const methods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'];
 interface HttpRequestProps {
   onSave: HttpProps['onSave'];
   onSend: HttpProps['onSend'];
+  onSaveAs: HttpProps['onSaveAs'];
+  collection: HttpProps['collection'];
   breadcrumbItems: { title: string }[];
   onChange: HttpProps['onChange'];
   description: string;
@@ -30,45 +43,25 @@ interface HttpRequestProps {
 }
 const HttpRequest: FC<HttpRequestProps> = ({
   onSave,
+  onSaveAs,
   onSend,
   onChange,
   breadcrumbItems,
   description,
   tagOptions,
   tags,
+  collection,
 }) => {
   const { store, dispatch } = useContext(Context);
-
+  const [saveAsShow, setSaveAsShow] = useState(false);
   const { t } = useTranslation();
-  const handleMenuClick: MenuProps['onClick'] = (e) => {
-    message.info('Click on menu item.');
-  };
-
-  const items: MenuProps['items'] = [
-    {
-      label: '1st menu item',
-      key: '1',
-      icon: <UserOutlined />,
-    },
-    {
-      label: '2nd menu item',
-      key: '2',
-      icon: <UserOutlined />,
-    },
-    {
-      label: '3rd menu item',
-      key: '3',
-      icon: <UserOutlined />,
-    },
-  ];
-
   const reset = () => {
     dispatch((state) => {
       state.response = null;
     });
   };
 
-  const handleRequest = ({ type }: any) => {
+  const handleRequest = () => {
     dispatch((state) => {
       state.response = {
         type: 'loading',
@@ -106,7 +99,7 @@ const HttpRequest: FC<HttpRequestProps> = ({
           titleItems={breadcrumbItems}
           onChange={onChange}
         />
-        <div>
+        <Space>
           <Button
             onClick={() => {
               const request = JSON.parse(JSON.stringify(store.request));
@@ -119,7 +112,16 @@ const HttpRequest: FC<HttpRequestProps> = ({
           >
             {t('action.save')}
           </Button>
-        </div>
+
+          <Button
+            type={'primary'}
+            onClick={() => {
+              setSaveAsShow(true);
+            }}
+          >
+            Save As
+          </Button>
+        </Space>
       </div>
       <HeaderWrapper>
         <Select
@@ -167,12 +169,24 @@ const HttpRequest: FC<HttpRequestProps> = ({
           {store.response?.type === 'loading' ? (
             <Button onClick={() => reset()}>{t('action.cancel')}</Button>
           ) : (
-            <Button onClick={() => handleRequest({ type: null })} type='primary'>
+            <Button onClick={() => handleRequest()} type='primary'>
               {t('action.send')}
             </Button>
           )}
         </div>
       </HeaderWrapper>
+      <SaveAs
+        collection={collection}
+        show={saveAsShow}
+        onHide={() => {
+          setSaveAsShow(false);
+        }}
+        onOk={(val) => {
+          onSaveAs(val).then(() => {
+            setSaveAsShow(false);
+          });
+        }}
+      />
     </div>
   );
 };

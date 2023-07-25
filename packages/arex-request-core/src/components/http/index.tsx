@@ -27,13 +27,15 @@ export type HttpConfig = {
   responseTabs?: TabConfig;
 };
 export interface HttpProps {
+  collection: any[];
   height: string;
   environment: Environment;
   value: ArexRESTRequest | undefined;
   onSend: (
     r: ArexRESTRequest,
   ) => Promise<{ response: ArexRESTResponse; testResult: PostmanTestResult }>;
-  onSave: (r: ArexRESTRequest,response: ArexRESTResponse) => void;
+  onSave: (r: ArexRESTRequest, response: ArexRESTResponse) => void;
+  onSaveAs: ({ savePath }: { savePath: string[] }) => Promise<boolean>;
   config: HttpConfig;
   breadcrumbItems: { title: string }[];
   onChange: ({
@@ -55,6 +57,7 @@ const Http: FC<HttpProps> = ({
   onSend,
   environment,
   onSave,
+  onSaveAs,
   breadcrumbItems,
   onChange,
   description,
@@ -62,6 +65,7 @@ const Http: FC<HttpProps> = ({
   tagOptions,
   height,
   config,
+  collection,
 }) => {
   const { store, dispatch } = useContext(Context);
   useEffect(() => {
@@ -101,6 +105,7 @@ const Http: FC<HttpProps> = ({
             `}
           >
             <HttpRequest
+              collection={collection}
               description={description}
               tags={tags}
               tagOptions={tagOptions}
@@ -108,7 +113,8 @@ const Http: FC<HttpProps> = ({
               onChange={onChange}
               onSave={onSave}
               onSend={onSend}
-            ></HttpRequest>
+              onSaveAs={onSaveAs}
+            />
             <HttpRequestOptions config={config?.requestTabs} />
           </div>
         ) : null}

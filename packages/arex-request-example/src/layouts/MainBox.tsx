@@ -9,6 +9,33 @@ import { sendRequest } from '../helpers/postman';
 import useDarkMode from '../hooks/use-dark-mode';
 import { requestCollection } from '../mocks/requestCollection';
 const { useToken } = theme;
+const treeData = [
+  {
+    value: 'parent 1',
+    title: 'parent 1',
+    children: [
+      {
+        value: 'parent 1-0',
+        title: 'parent 1-0',
+        disabled: true,
+        children: [
+          {
+            value: 'leaf1',
+            title: 'leaf1',
+          },
+          {
+            value: 'leaf2',
+            title: 'leaf2',
+          },
+        ],
+      },
+      {
+        value: 'parent 1-1',
+        title: 'parent 1-1',
+      },
+    ],
+  },
+];
 const MainBox = () => {
   const [locale, setLocale] = useState(localStorage.getItem('locale') || 'en');
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
@@ -128,6 +155,7 @@ const MainBox = () => {
           `}
         >
           <Http
+            collection={treeData}
             height={'100%'}
             locale={locale}
             theme={theme}
@@ -154,6 +182,11 @@ const MainBox = () => {
             tags={['sd']}
             tagOptions={[{ color: 'blue', value: 'sd', label: 'd' }]}
             description={'description'}
+            onSaveAs={(val) => {
+              return new Promise((resolve) => {
+                resolve(true);
+              });
+            }}
           />
         </div>
       </div>
